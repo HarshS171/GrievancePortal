@@ -1,67 +1,117 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 style="margin-bottom: 0;">{{ __('Manage Complaint') }} #{{ $complaint->id }}</h2>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-3">
+                    <h2 class="text-2xl font-bold text-gray-900">Manage Complaint #{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }}</h2>
+                    @if($complaint->is_urgent)
+                        <span class="px-2 py-0.5 rounded text-xs font-bold bg-red-100 text-red-800 border border-red-200">URGENT</span>
+                    @endif
+                    @if($complaint->status === 'Pending')
+                        <span class="badge badge-pending">Pending</span>
+                    @elseif($complaint->status === 'In Progress')
+                        <span class="badge badge-in-progress">In Progress</span>
+                    @elseif($complaint->status === 'Resolved')
+                        <span class="badge badge-resolved">Resolved</span>
+                    @else
+                        <span class="badge bg-gray-100 text-gray-800">{{ $complaint->status }}</span>
+                    @endif
+                </div>
+                <p class="mt-1 text-sm text-gray-500">Submitted by {{ $complaint->user->name }} on {{ $complaint->created_at->format('M d, Y h:i A') }}</p>
+            </div>
+            <a href="{{ route('admin.complaints') }}" class="btn btn-secondary inline-flex">
+                &larr; Back to List
+            </a>
+        </div>
     </x-slot>
 
-    <div class="section-py">
-        <div class="container">
-            <div class="grid grid-cols-1" style="grid-template-columns: 2fr 1fr; gap: 32px;">
-                <!-- Main Content -->
-                <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <div class="card">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
-                            <div>
-                                <h1 style="font-size: 1.75rem; margin-bottom: 8px;">{{ $complaint->title }}</h1>
-                                <div style="display: flex; gap: 12px; align-items: center; color: var(--text-muted); font-size: 0.875rem;">
-                                    <span><strong>Citizen:</strong> {{ $complaint->user->name }}</span>
-                                    <span>•</span>
-                                    <span><strong>Category:</strong> {{ $complaint->category->name }}</span>
-                                    <span>•</span>
-                                    <span>{{ $complaint->created_at->format('M d, Y') }}</span>
-                                </div>
-                            </div>
-                            <span class="badge {{ $complaint->status == 'Resolved' ? 'badge-resolved' : ($complaint->status == 'Rejected' ? 'badge-rejected' : 'badge-pending') }}">
-                                {{ $complaint->status }}
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Left Column: Details -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="card bg-white p-0 overflow-hidden shadow-sm">
+                        <div class="px-6 py-5 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                            <h3 class="text-lg font-bold text-gray-900">{{ $complaint->title }}</h3>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-white border border-gray-200 text-gray-600">
+                                {{ $complaint->category->name ?? 'Uncategorized' }}
                             </span>
                         </div>
-
-                        <div style="color: var(--text-main); font-size: 1rem; line-height: 1.6; margin-bottom: 32px; white-space: pre-line;">
-                            {{ $complaint->description }}
-                        </div>
-
-                        @if($complaint->image)
-                            <div style="padding-top: 24px; border-top: 1px solid var(--border);">
-                                <h4 style="font-size: 0.875rem; margin-bottom: 12px;">Attachment:</h4>
-                                <a href="{{ asset('storage/' . $complaint->image) }}" target="_blank">
-                                    <img src="{{ asset('storage/' . $complaint->image) }}" style="max-width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
-                                </a>
+                        <div class="p-6">
+                            <div class="prose max-w-none text-gray-700">
+                                <p class="whitespace-pre-line leading-relaxed">{{ $complaint->description }}</p>
                             </div>
-                        @endif
+                        </div>
                     </div>
 
-                    @if($complaint->feedback)
-                        <div class="card" style="background: #f0fdf4; border-color: #bbf7d0;">
-                            <h3 style="color: #166534; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                                <svg style="width: 20px; height: 20px;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                Citizen Feedback
-                            </h3>
-                            <div style="font-weight: 700; color: #166534; margin-bottom: 8px;">Rating: {{ $complaint->feedback->rating }}/5</div>
-                            <p style="color: #166534; margin-bottom: 0; font-style: italic;">"{{ $complaint->feedback->comment }}"</p>
+                    <!-- Address and Details Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Location details -->
+                        <div class="card bg-white shadow-sm p-6">
+                            <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Location Information</h4>
+                            <dl class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <dt class="text-gray-500 font-medium">Block:</dt>
+                                    <dd class="text-gray-900">{{ $complaint->block ?? 'N/A' }}</dd>
+                                </div>
+                                <div class="flex justify-between">
+                                    <dt class="text-gray-500 font-medium">Floor:</dt>
+                                    <dd class="text-gray-900">{{ $complaint->floor ?? 'N/A' }}</dd>
+                                </div>
+                                <div class="flex justify-between">
+                                    <dt class="text-gray-500 font-medium">Room Number:</dt>
+                                    <dd class="text-gray-900">{{ $complaint->room_number ?? 'N/A' }}</dd>
+                                </div>
+                                <div class="flex flex-col mt-2 pt-2 border-t border-gray-50">
+                                    <dt class="text-gray-500 font-medium">Area / Landmark:</dt>
+                                    <dd class="text-gray-900 mt-1">{{ $complaint->area_location ?? 'N/A' }}</dd>
+                                </div>
+                            </dl>
                         </div>
+
+                        <!-- Contact details -->
+                        <div class="card bg-white shadow-sm p-6">
+                            <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Contact & Visit Details</h4>
+                            <dl class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <dt class="text-gray-500 font-medium">Contact No:</dt>
+                                    <dd class="text-gray-900">{{ $complaint->contact_number ?? 'N/A' }}</dd>
+                                </div>
+                                <div class="flex justify-between">
+                                    <dt class="text-gray-500 font-medium">Availability Date:</dt>
+                                    <dd class="text-gray-900">{{ $complaint->availability_date ? \Carbon\Carbon::parse($complaint->availability_date)->format('M d, Y') : 'N/A' }}</dd>
+                                </div>
+                                <div class="flex justify-between">
+                                    <dt class="text-gray-500 font-medium">Preferred Time:</dt>
+                                    <dd class="text-gray-900">{{ $complaint->preferred_time_slot ?? 'N/A' }}</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    @if($complaint->image)
+                    <div class="card bg-white shadow-sm p-6">
+                        <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 pb-2 border-b border-gray-100">Attachment</h4>
+                        <div class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50 flex justify-center">
+                            <img src="{{ asset('storage/' . $complaint->image) }}" alt="Complaint Attachment" class="max-w-full h-auto object-contain max-h-[400px]">
+                        </div>
+                    </div>
                     @endif
                 </div>
 
-                <!-- Sidebar -->
-                <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <div class="card">
-                        <h3 style="margin-bottom: 16px;">Update Status</h3>
-                        <form action="{{ route('admin.complaints.update', $complaint->id) }}" method="POST">
+                <!-- Right Column: Admin Actions -->
+                <div class="space-y-6">
+                    <!-- Update Status Card -->
+                    <div class="card bg-white shadow-sm p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Update Status</h3>
+                        <form action="{{ route('admin.complaints.update', $complaint) }}" method="POST" class="space-y-4">
                             @csrf
                             @method('PUT')
-
-                            <div class="form-group">
-                                <label class="label">Status</label>
-                                <select name="status" class="select">
+                            
+                            <div>
+                                <label for="status" class="form-label">Current Status</label>
+                                <select name="status" id="status" class="form-input">
                                     <option value="Pending" {{ $complaint->status == 'Pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="In Progress" {{ $complaint->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
                                     <option value="Resolved" {{ $complaint->status == 'Resolved' ? 'selected' : '' }}>Resolved</option>
@@ -69,28 +119,34 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label class="label">Admin Remark</label>
-                                <textarea name="admin_remark" rows="4" class="textarea" placeholder="Action taken details...">{{ old('admin_remark', $complaint->admin_remark) }}</textarea>
+                            <div>
+                                <label for="admin_remark" class="form-label">Admin Remark (Optional)</label>
+                                <textarea name="admin_remark" id="admin_remark" rows="4" class="form-input" placeholder="Enter resolution details or remarks sent to citizen...">{{ $complaint->admin_remark }}</textarea>
+                                @error('admin_remark')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                Update Complaint
+                            <button type="submit" class="btn btn-primary w-full mt-2">
+                                Save Changes
                             </button>
                         </form>
                     </div>
 
-                    <div class="card" style="border-color: #fee2e2;">
-                        <h3 style="color: var(--danger); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 16px;">Danger Zone</h3>
-                        <form action="{{ route('admin.complaints.destroy', $complaint->id) }}" method="POST" onsubmit="return confirm('Permanently delete?')">
+                    <!-- Delete Card -->
+                    <div class="card bg-white border border-red-100 shadow-sm p-6">
+                        <h3 class="text-lg font-bold text-red-600 mb-2">Danger Zone</h3>
+                        <p class="text-sm text-gray-500 mb-4">Permanently delete this complaint from the system. This action cannot be undone.</p>
+                        <form action="{{ route('admin.complaints.destroy', $complaint) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this complaint?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" style="width: 100%;">
+                            <button type="submit" class="btn btn-danger w-full">
                                 Delete Complaint
                             </button>
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
