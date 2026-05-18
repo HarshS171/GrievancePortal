@@ -3,46 +3,104 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --primary: 99 102 241; /* Indigo 500 */
+    --primary-focus: 79 70 229; /* Indigo 600 */
+  }
   body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+    @apply bg-slate-50 text-slate-800 antialiased font-sans selection:bg-indigo-200 selection:text-indigo-900;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
   }
 }
 
 @layer components {
+  /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-150 border border-transparent cursor-pointer;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 border cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
   .btn-primary {
-    @apply bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm;
+    @apply bg-indigo-600 text-white border-transparent hover:bg-indigo-700 shadow-md shadow-indigo-200 hover:shadow-lg hover:shadow-indigo-300 hover:-translate-y-0.5 focus:ring-indigo-500;
   }
   .btn-secondary {
-    @apply bg-white text-gray-700 border-gray-300 hover:bg-gray-50 shadow-sm;
+    @apply bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300 shadow-sm hover:shadow hover:-translate-y-0.5 focus:ring-slate-500;
   }
   .btn-danger {
-    @apply bg-red-600 text-white hover:bg-red-700 shadow-sm;
+    @apply bg-rose-600 text-white border-transparent hover:bg-rose-700 shadow-md shadow-rose-200 hover:shadow-lg hover:shadow-rose-300 hover:-translate-y-0.5 focus:ring-rose-500;
   }
   .btn-outline {
-    @apply bg-transparent text-white border-white border hover:bg-white/10;
+    @apply bg-transparent text-indigo-600 border-indigo-200 hover:bg-indigo-50 hover:border-indigo-300 focus:ring-indigo-500;
   }
+  
+  /* Cards */
   .card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
+    @apply bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300 overflow-hidden relative;
   }
+  .card-glass {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl;
+  }
+
+  /* Badges */
   .badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border;
   }
   .badge-pending {
-    @apply bg-amber-100 text-amber-800;
+    @apply bg-amber-50 text-amber-700 border-amber-200/60 shadow-sm shadow-amber-100;
   }
   .badge-resolved {
-    @apply bg-emerald-100 text-emerald-800;
+    @apply bg-emerald-50 text-emerald-700 border-emerald-200/60 shadow-sm shadow-emerald-100;
   }
   .badge-in-progress {
-    @apply bg-blue-100 text-blue-800;
+    @apply bg-blue-50 text-blue-700 border-blue-200/60 shadow-sm shadow-blue-100;
   }
+  .badge-rejected {
+    @apply bg-rose-50 text-rose-700 border-rose-200/60 shadow-sm shadow-rose-100;
+  }
+
+  /* Forms */
   .form-input {
-    @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm;
+    @apply block w-full rounded-xl border-slate-200 bg-slate-50/50 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 sm:text-sm;
+  }
+  .form-select {
+    @apply block w-full rounded-xl border-slate-200 bg-slate-50/50 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 sm:text-sm;
+  }
+  .form-textarea {
+    @apply block w-full rounded-xl border-slate-200 bg-slate-50/50 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 sm:text-sm;
   }
   .form-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
+    @apply block text-sm font-semibold text-slate-700 mb-1.5;
+  }
+  
+  /* Layout */
+  .glass-header {
+    @apply bg-white/80 backdrop-blur-lg border-b border-slate-100/80 sticky top-0 z-40;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }

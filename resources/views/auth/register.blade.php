@@ -1,36 +1,44 @@
 <x-guest-layout>
-    <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px;">Create your account</h2>
+    <div class="mb-8 text-center">
+        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Create your account</h2>
+        <p class="mt-2 text-sm text-slate-500 font-medium">Join us to start submitting your grievances easily.</p>
+    </div>
 
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" class="space-y-5">
         @csrf
-        <div class="form-group">
-            <label class="form-label" for="name">Full Name</label>
-            <input id="name" class="form-input" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
-            @error('name') <p class="form-error">{{ $message }}</p> @enderror
+        
+        <div class="group">
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors" for="name">Full Name</label>
+            <input id="name" class="form-input w-full @error('name') border-rose-300 ring-rose-200 @enderror" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="John Doe">
+            @error('name') <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p> @enderror
         </div>
 
-        <div class="form-group">
-            <label class="form-label" for="email">Email Address</label>
-            <input id="email" class="form-input" type="email" name="email" value="{{ old('email') }}" required autocomplete="username">
-            @error('email') <p class="form-error">{{ $message }}</p> @enderror
+        <div class="group">
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors" for="email">Email address</label>
+            <input id="email" class="form-input w-full @error('email') border-rose-300 ring-rose-200 @enderror" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="you@example.com">
+            @error('email') <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p> @enderror
         </div>
 
-        <div class="form-group">
-            <label class="form-label" for="password">Password</label>
-            <input id="password" class="form-input" type="password" name="password" required autocomplete="new-password">
-            @error('password') <p class="form-error">{{ $message }}</p> @enderror
+        <div class="group">
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors" for="password">Password</label>
+            <input id="password" class="form-input w-full @error('password') border-rose-300 ring-rose-200 @enderror" type="password" name="password" required autocomplete="new-password" placeholder="••••••••">
+            @error('password') <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p> @enderror
         </div>
 
-        <div class="form-group">
-            <label class="form-label" for="password_confirmation">Confirm Password</label>
-            <input id="password_confirmation" class="form-input" type="password" name="password_confirmation" required autocomplete="new-password">
+        <div class="group">
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors" for="password_confirmation">Confirm Password</label>
+            <input id="password_confirmation" class="form-input w-full" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="••••••••">
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+        <button type="submit" class="btn btn-primary w-full py-2.5 text-base mt-2 shadow-lg shadow-indigo-200">
+            Create Account
+        </button>
 
-        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-            <span class="text-sm text-muted">Already have an account?</span>
-            <a href="{{ route('login') }}" class="text-link text-sm" style="margin-left: 4px;">Log in</a>
+        <div class="pt-6 mt-6 border-t border-slate-100 text-center">
+            <p class="text-sm text-slate-600 font-medium">
+                Already have an account? 
+                <a href="{{ route('login') }}" class="text-indigo-600 font-bold hover:text-indigo-500 transition-colors ml-1">Sign in instead</a>
+            </p>
         </div>
     </form>
 </x-guest-layout>
