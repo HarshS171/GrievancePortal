@@ -98,6 +98,27 @@
                         </div>
                     </div>
                     @endif
+
+                    <!-- Citizen Feedback Section -->
+                    @if($complaint->feedback)
+                    <div class="rounded-xl p-6 bg-amber-50 border border-amber-100 shadow-sm">
+                        <h4 class="text-sm font-bold text-amber-900 uppercase tracking-wider mb-4 border-b border-amber-100 pb-2">Citizen Feedback</h4>
+                        <div class="flex items-center gap-2 mb-3">
+                            @for($i = 1; $i <= 5; $i++)
+                                <svg class="w-6 h-6 {{ $i <= $complaint->feedback->rating ? 'text-amber-400' : 'text-gray-300' }}" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                            @endfor
+                            <span class="ml-1 text-base font-bold text-amber-700">{{ $complaint->feedback->rating }}/5</span>
+                        </div>
+                        <p class="text-amber-800 leading-relaxed text-sm">{{ $complaint->feedback->comment }}</p>
+                        <p class="mt-2 text-xs text-amber-500">Submitted {{ $complaint->feedback->created_at->diffForHumans() }}</p>
+                    </div>
+                    @elseif($complaint->status === 'Resolved')
+                    <div class="rounded-xl p-4 bg-gray-50 border border-dashed border-gray-200 text-center">
+                        <p class="text-sm text-gray-500 italic">Citizen has not submitted feedback yet.</p>
+                    </div>
+                    @endif
                 </div>
 
                 <!-- Right Column: Admin Actions -->

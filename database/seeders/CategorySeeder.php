@@ -13,13 +13,16 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Roads & Infrastructure',
-            'Water Supply',
             'Electricity',
-            'Sanitation',
-            'Public Health',
-            'Education',
+            'Water Supply',
+            'Hostel Cleaning',
+            'Internet/WiFi',
+            'Food/Mess',
+            'Plumbing',
+            'Furniture',
             'Security',
+            'Lift Issue',
+            'Room Maintenance',
             'Other'
         ];
 

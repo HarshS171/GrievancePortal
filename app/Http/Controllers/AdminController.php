@@ -13,7 +13,7 @@ class AdminController extends Controller
         $totalComplaints = Complaint::count();
         $pendingComplaints = Complaint::where('status', 'Pending')->count();
         $resolvedComplaints = Complaint::where('status', 'Resolved')->count();
-        $totalUsers = User::where('role', 'citizen')->count();
+        $totalUsers = User::where('role', 'user')->count();
 
         return view('admin.dashboard',
             compact(
@@ -29,12 +29,22 @@ class AdminController extends Controller
         $query = Complaint::with(['user', 'category']);
 
         if ($request->search) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $query->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('id', $request->search);
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->category_id) {
+            $query->where('category_id', $request->category_id);
         }
 
         $complaints = $query->latest()->get();
+        $categories = \App\Models\Category::all();
 
-        return view('admin.complaints', compact('complaints'));
+        return view('admin.complaints', compact('complaints', 'categories'));
     }
 
     public function show(Complaint $complaint)
