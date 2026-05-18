@@ -45,22 +45,22 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
                                 <label for="block" class="form-label">Block</label>
-                                <input type="text" name="block" id="block" class="form-input" value="{{ old('block') }}" placeholder="e.g. Block A">
+                                <input type="text" name="block" id="block" class="form-input @error('block') border-red-500 @enderror" value="{{ old('block') }}" placeholder="e.g. Block A">
                                 @error('block') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
                             <div>
                                 <label for="floor" class="form-label">Floor</label>
-                                <input type="text" name="floor" id="floor" class="form-input" value="{{ old('floor') }}" placeholder="e.g. 2nd Floor">
+                                <input type="text" name="floor" id="floor" class="form-input @error('floor') border-red-500 @enderror" value="{{ old('floor') }}" placeholder="e.g. 2nd Floor">
                                 @error('floor') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
                             <div>
                                 <label for="room_number" class="form-label">Room Number</label>
-                                <input type="text" name="room_number" id="room_number" class="form-input" value="{{ old('room_number') }}" placeholder="e.g. 204">
+                                <input type="text" name="room_number" id="room_number" class="form-input @error('room_number') border-red-500 @enderror" value="{{ old('room_number') }}" placeholder="e.g. 204">
                                 @error('room_number') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
                             <div class="md:col-span-3">
-                                <label for="area_location" class="form-label">Area/Location</label>
-                                <input type="text" name="area_location" id="area_location" class="form-input" value="{{ old('area_location') }}" placeholder="Detailed location or landmark">
+                                <label for="area_location" class="form-label">Area/Location <span class="text-red-500">*</span></label>
+                                <input type="text" name="area_location" id="area_location" class="form-input @error('area_location') border-red-500 @enderror" value="{{ old('area_location') }}" placeholder="Detailed location or landmark" required>
                                 @error('area_location') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
                         </div>
@@ -71,8 +71,8 @@
                         <h3 class="text-lg font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">Contact & Availability</h3>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
-                                <label for="contact_number" class="form-label">Contact Number</label>
-                                <input type="tel" name="contact_number" id="contact_number" class="form-input @error('contact_number') border-red-500 @enderror" value="{{ old('contact_number') }}" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" minlength="10">
+                                <label for="contact_number" class="form-label">Contact Number <span class="text-red-500">*</span></label>
+                                <input type="tel" name="contact_number" id="contact_number" class="form-input @error('contact_number') border-red-500 @enderror" value="{{ old('contact_number') }}" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" minlength="10" required>
                                 @error('contact_number')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @else
@@ -80,13 +80,13 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="availability_date" class="form-label">Availability Date</label>
-                                <input type="date" name="availability_date" id="availability_date" class="form-input" value="{{ old('availability_date') }}">
+                                <label for="availability_date" class="form-label">Availability Date <span class="text-red-500">*</span></label>
+                                <input type="date" name="availability_date" id="availability_date" class="form-input @error('availability_date') border-red-500 @enderror" value="{{ old('availability_date') }}" min="{{ date('Y-m-d') }}" required>
                                 @error('availability_date') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
                             <div>
-                                <label for="preferred_time_slot" class="form-label">Preferred Visit Time</label>
-                                <select name="preferred_time_slot" id="preferred_time_slot" class="form-input">
+                                <label for="preferred_time_slot" class="form-label">Preferred Visit Time <span class="text-red-500">*</span></label>
+                                <select name="preferred_time_slot" id="preferred_time_slot" class="form-input @error('preferred_time_slot') border-red-500 @enderror" required>
                                     <option value="" disabled selected>Select a time slot</option>
                                     <option value="08:00 AM - 10:00 AM" {{ old('preferred_time_slot') == '08:00 AM - 10:00 AM' ? 'selected' : '' }}>08:00 AM - 10:00 AM</option>
                                     <option value="10:00 AM - 12:00 PM" {{ old('preferred_time_slot') == '10:00 AM - 12:00 PM' ? 'selected' : '' }}>10:00 AM - 12:00 PM</option>
