@@ -53,6 +53,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     
     // Category Management
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class)->names('admin.categories');
+
+    // Analytics
+    Route::get('/analytics', [\App\Http\Controllers\Admin\AnalyticsController::class, 'index'])->name('admin.analytics');
 });
 
 // FeedbackController

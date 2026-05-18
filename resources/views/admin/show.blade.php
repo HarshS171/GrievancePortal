@@ -17,7 +17,16 @@
                         <span class="badge bg-gray-100 text-gray-800">{{ $complaint->status }}</span>
                     @endif
                 </div>
-                <p class="mt-1 text-sm text-gray-500">Submitted by {{ $complaint->user->name }} on {{ $complaint->created_at->format('M d, Y h:i A') }}</p>
+                <p class="mt-1 text-sm text-gray-500">
+                    Submitted by
+                    @if($complaint->is_anonymous)
+                        <span class="italic text-gray-400">Anonymous</span>
+                        <span class="ml-2 px-2 py-0.5 rounded text-xs font-bold bg-gray-100 text-gray-600 border border-gray-200">🕵️ Anonymous Complaint</span>
+                    @else
+                        <span class="font-semibold text-gray-700">{{ $complaint->user->name }}</span>
+                    @endif
+                    on {{ $complaint->created_at->format('M d, Y h:i A') }}
+                </p>
             </div>
             <a href="{{ route('admin.complaints') }}" class="btn btn-secondary inline-flex">
                 &larr; Back to List

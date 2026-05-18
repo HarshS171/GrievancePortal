@@ -101,11 +101,23 @@
 
                     <!-- Additional Options -->
                     <div>
-                        <div class="flex items-center gap-3 bg-red-50 p-4 rounded-lg border border-red-100">
-                            <input type="checkbox" name="is_urgent" id="is_urgent" value="1" class="h-5 w-5 text-red-600 border-red-300 rounded focus:ring-red-500" {{ old('is_urgent') ? 'checked' : '' }}>
-                            <label for="is_urgent" class="text-sm font-bold text-red-800">
-                                Emergency: Mark as urgent
-                            </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Urgent -->
+                            <div class="flex items-center gap-3 bg-red-50 p-4 rounded-lg border border-red-100">
+                                <input type="checkbox" name="is_urgent" id="is_urgent" value="1" class="h-5 w-5 text-red-600 border-red-300 rounded focus:ring-red-500" {{ old('is_urgent') ? 'checked' : '' }}>
+                                <div>
+                                    <label for="is_urgent" class="text-sm font-bold text-red-800">🚨 Mark as Urgent</label>
+                                    <p class="text-xs text-red-600 mt-0.5">For issues requiring immediate attention</p>
+                                </div>
+                            </div>
+                            <!-- Anonymous -->
+                            <div class="flex items-center gap-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <input type="checkbox" name="is_anonymous" id="is_anonymous" value="1" class="h-5 w-5 text-gray-600 border-gray-300 rounded focus:ring-gray-500" {{ old('is_anonymous') ? 'checked' : '' }}>
+                                <div>
+                                    <label for="is_anonymous" class="text-sm font-bold text-gray-800">🕵️ Submit Anonymously</label>
+                                    <p class="text-xs text-gray-500 mt-0.5">Your name will be hidden from admin view</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

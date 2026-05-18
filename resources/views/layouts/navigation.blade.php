@@ -31,6 +31,9 @@
                         <a href="{{ route('admin.categories.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.categories*') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }} text-sm font-medium transition duration-150 ease-in-out">
                             Categories
                         </a>
+                        <a href="{{ route('admin.analytics') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.analytics') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }} text-sm font-medium transition duration-150 ease-in-out">
+                            Analytics
+                        </a>
                     @endif
                 </div>
             </div>
