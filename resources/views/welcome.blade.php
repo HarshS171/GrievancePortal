@@ -73,21 +73,30 @@
         </div>
     </div>
 
-    <!-- Stats Section -->
-    <div class="relative z-20 -mt-12 mb-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 p-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-gray-100 text-center">
-                <div class="p-4">
-                    <p class="text-5xl font-extrabold text-indigo-600 mb-2">98%</p>
-                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Satisfaction Rate</p>
+    <!-- Platform Highlights Section -->
+    <div class="relative z-20 -mt-12 mb-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 p-8 sm:p-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                <div class="md:px-4 pt-4 md:pt-0 flex flex-col items-center text-center group">
+                    <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">100% Transparent</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Track your grievance status at every stage. Complete visibility from submission to final resolution.</p>
                 </div>
-                <div class="p-4">
-                    <p class="text-5xl font-extrabold text-indigo-600 mb-2">48h</p>
-                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Response Time</p>
+                <div class="md:px-8 pt-8 md:pt-0 flex flex-col items-center text-center group">
+                    <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Accountability</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Complaints are directly assigned to concerned dealing officers to ensure responsible action.</p>
                 </div>
-                <div class="p-4">
-                    <p class="text-5xl font-extrabold text-indigo-600 mb-2">12k+</p>
-                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Resolved Cases</p>
+                <div class="md:px-4 pt-8 md:pt-0 flex flex-col items-center text-center group">
+                    <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Swift Action</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Automated escalation mechanisms ensure that critical issues are addressed rapidly.</p>
                 </div>
             </div>
         </div>
