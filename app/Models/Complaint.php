@@ -22,7 +22,8 @@ class Complaint extends Model
         'preferred_time_slot',
         'availability_date',
         'is_urgent',
-        'is_anonymous'
+        'is_anonymous',
+        'is_escalated'
     ];
 
     public function user()

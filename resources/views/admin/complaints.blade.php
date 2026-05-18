@@ -113,6 +113,9 @@
                                             @else
                                                 <span class="badge bg-gray-100 text-gray-800">{{ $complaint->status }}</span>
                                             @endif
+                                            @if($complaint->is_escalated)
+                                                <span class="ml-1 px-2 py-0.5 rounded text-xs font-bold bg-orange-100 text-orange-800 border border-orange-200">ESCALATED</span>
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $complaint->created_at->format('M d, Y') }}

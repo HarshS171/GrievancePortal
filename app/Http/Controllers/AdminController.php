@@ -10,9 +10,22 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $totalComplaints = Complaint::count();
-        $pendingComplaints = Complaint::where('status', 'Pending')->count();
-        $resolvedComplaints = Complaint::where('status', 'Resolved')->count();
+        $isSuperintendent = auth()->user()->role === 'superintendent';
+
+        $totalComplaints = Complaint::when($isSuperintendent, function ($query) {
+            $query->where('is_escalated', true);
+        })->count();
+        
+        $pendingComplaints = Complaint::where('status', 'Pending')
+            ->when($isSuperintendent, function ($query) {
+                $query->where('is_escalated', true);
+            })->count();
+            
+        $resolvedComplaints = Complaint::where('status', 'Resolved')
+            ->when($isSuperintendent, function ($query) {
+                $query->where('is_escalated', true);
+            })->count();
+            
         $totalUsers = User::where('role', 'user')->count();
 
         return view('admin.dashboard',
@@ -27,6 +40,10 @@ class AdminController extends Controller
     public function complaints(Request $request)
     {
         $query = Complaint::with(['user', 'category']);
+
+        if (auth()->user()->role === 'superintendent') {
+            $query->where('is_escalated', true);
+        }
 
         if ($request->search) {
             $query->where('title', 'like', '%' . $request->search . '%')

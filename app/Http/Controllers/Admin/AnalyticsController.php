@@ -12,12 +12,17 @@ class AnalyticsController extends Controller
 {
     public function index()
     {
+        $isSuperintendent = auth()->check() && auth()->user()->role === 'superintendent';
+
         // --- Bar Chart: Complaints per category ---
-        $complaintsPerCategory = Category::withCount('complaints')->get()
+        $complaintsPerCategory = Category::withCount(['complaints' => function ($query) use ($isSuperintendent) {
+            if ($isSuperintendent) $query->where('is_escalated', true);
+        }])->get()
             ->map(fn($c) => ['name' => $c->name, 'count' => $c->complaints_count]);
 
         // --- Pie Chart: Status Distribution ---
-        $statusCounts = Complaint::select('status', DB::raw('count(*) as total'))
+        $statusCounts = Complaint::when($isSuperintendent, function($q) { $q->where('is_escalated', true); })
+            ->select('status', DB::raw('count(*) as total'))
             ->groupBy('status')
             ->pluck('total', 'status');
 
@@ -35,6 +40,7 @@ class AnalyticsController extends Controller
                 DB::raw('DATE(created_at) as date'),
                 DB::raw('count(*) as total')
             )
+            ->when($isSuperintendent, function($q) { $q->where('is_escalated', true); })
             ->where('created_at', '>=', Carbon::now()->subDays(29)->startOfDay())
             ->groupBy('date')
             ->pluck('total', 'date');
@@ -44,6 +50,7 @@ class AnalyticsController extends Controller
 
         // --- Avg Resolution Time (days) ---
         $avgResolutionTime = Complaint::where('status', 'Resolved')
+            ->when($isSuperintendent, function($q) { $q->where('is_escalated', true); })
             ->selectRaw('AVG(JULIANDAY(updated_at) - JULIANDAY(created_at)) as avg_days')
             ->value('avg_days');
         $avgResolutionTime = $avgResolutionTime ? round($avgResolutionTime, 1) : 'N/A';

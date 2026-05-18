@@ -7,6 +7,9 @@
                     @if($complaint->is_urgent)
                         <span class="px-2 py-0.5 rounded text-xs font-bold bg-red-100 text-red-800 border border-red-200">URGENT</span>
                     @endif
+                    @if($complaint->is_escalated)
+                        <span class="px-2 py-0.5 rounded text-xs font-bold bg-orange-100 text-orange-800 border border-orange-200">ESCALATED</span>
+                    @endif
                     @if($complaint->status === 'Pending')
                         <span class="badge badge-pending">Pending</span>
                     @elseif($complaint->status === 'In Progress')
