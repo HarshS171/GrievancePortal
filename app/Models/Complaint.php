@@ -13,7 +13,17 @@ class Complaint extends Model
         'description',
         'image',
         'status',
-        'admin_remark'
+        'admin_remark',
+        'block',
+        'floor',
+        'room_number',
+        'area_location',
+        'contact_number',
+        'preferred_time_slot',
+        'availability_date',
+        'is_urgent',
+        'is_anonymous',
+        'is_escalated'
     ];
 
     public function user()

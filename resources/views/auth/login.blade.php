@@ -1,33 +1,46 @@
 <x-guest-layout>
-    <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px;">Log in to your account</h2>
+    <div class="mb-8 text-center">
+        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Welcome back</h2>
+        <p class="mt-2 text-sm text-slate-500 font-medium">Please enter your details to sign in.</p>
+    </div>
 
-    <form method="POST" action="{{ route('login') }}">
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+    <form method="POST" action="{{ route('login') }}" class="space-y-6">
         @csrf
-        <div class="form-group">
-            <label class="form-label" for="email">Email</label>
-            <input id="email" class="form-input" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
-            @error('email') <p class="form-error">{{ $message }}</p> @enderror
+        
+        <div class="group">
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors" for="email">Email address</label>
+            <input id="email" class="form-input w-full @error('email') border-rose-300 ring-rose-200 @enderror" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Enter your email">
+            @error('email') <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p> @enderror
         </div>
 
-        <div class="form-group">
-            <label class="form-label" for="password">Password</label>
-            <input id="password" class="form-input" type="password" name="password" required autocomplete="current-password">
-            @error('password') <p class="form-error">{{ $message }}</p> @enderror
+        <div class="group">
+            <div class="flex items-center justify-between mb-1.5">
+                <label class="block text-sm font-semibold text-slate-700 group-focus-within:text-indigo-600 transition-colors" for="password">Password</label>
+                @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 transition-colors">Forgot password?</a>
+                @endif
+            </div>
+            <input id="password" class="form-input w-full @error('password') border-rose-300 ring-rose-200 @enderror" type="password" name="password" required autocomplete="current-password" placeholder="••••••••">
+            @error('password') <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p> @enderror
         </div>
 
-        <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
-            <input id="remember_me" type="checkbox" name="remember">
-            <label for="remember_me" class="text-sm text-muted" style="margin: 0;">Remember me</label>
+        <div class="flex items-center">
+            <input id="remember_me" type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-colors cursor-pointer">
+            <label for="remember_me" class="ml-2 text-sm font-medium text-slate-600 cursor-pointer select-none">Remember me for 30 days</label>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Log in</button>
+        <button type="submit" class="btn btn-primary w-full py-2.5 text-base shadow-lg shadow-indigo-200">
+            Sign In
+        </button>
 
-        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-            @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="text-link text-sm" style="display: block; margin-bottom: 8px;">Forgot your password?</a>
-            @endif
-            <span class="text-sm text-muted">Don't have an account?</span>
-            <a href="{{ route('register') }}" class="text-link text-sm" style="margin-left: 4px;">Sign up</a>
+        <div class="pt-6 mt-6 border-t border-slate-100 text-center">
+            <p class="text-sm text-slate-600 font-medium">
+                Don't have an account? 
+                <a href="{{ route('register') }}" class="text-indigo-600 font-bold hover:text-indigo-500 transition-colors ml-1">Create an account</a>
+            </p>
         </div>
     </form>
 </x-guest-layout>

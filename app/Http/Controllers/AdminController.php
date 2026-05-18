@@ -10,10 +10,23 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $totalComplaints = Complaint::count();
-        $pendingComplaints = Complaint::where('status', 'Pending')->count();
-        $resolvedComplaints = Complaint::where('status', 'Resolved')->count();
-        $totalUsers = User::where('role', 'citizen')->count();
+        $isSuperintendent = auth()->user()->role === 'superintendent';
+
+        $totalComplaints = Complaint::when($isSuperintendent, function ($query) {
+            $query->where('is_escalated', true);
+        })->count();
+        
+        $pendingComplaints = Complaint::where('status', 'Pending')
+            ->when($isSuperintendent, function ($query) {
+                $query->where('is_escalated', true);
+            })->count();
+            
+        $resolvedComplaints = Complaint::where('status', 'Resolved')
+            ->when($isSuperintendent, function ($query) {
+                $query->where('is_escalated', true);
+            })->count();
+            
+        $totalUsers = User::where('role', 'user')->count();
 
         return view('admin.dashboard',
             compact(
@@ -28,13 +41,27 @@ class AdminController extends Controller
     {
         $query = Complaint::with(['user', 'category']);
 
+        if (auth()->user()->role === 'superintendent') {
+            $query->where('is_escalated', true);
+        }
+
         if ($request->search) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $query->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('id', $request->search);
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->category_id) {
+            $query->where('category_id', $request->category_id);
         }
 
         $complaints = $query->latest()->get();
+        $categories = \App\Models\Category::all();
 
-        return view('admin.complaints', compact('complaints'));
+        return view('admin.complaints', compact('complaints', 'categories'));
     }
 
     public function show(Complaint $complaint)

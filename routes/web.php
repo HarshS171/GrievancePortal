@@ -11,10 +11,17 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    if (auth()->user()->role === 'admin') {
+    if (in_array(auth()->user()->role, ['admin', 'superintendent'])) {
         return redirect()->route('admin.dashboard');
     }
-    return view('dashboard');
+    
+    $userId = auth()->id();
+    $totalComplaints = \App\Models\Complaint::where('user_id', $userId)->count();
+    $pendingComplaints = \App\Models\Complaint::where('user_id', $userId)->where('status', 'Pending')->count();
+    $resolvedComplaints = \App\Models\Complaint::where('user_id', $userId)->where('status', 'Resolved')->count();
+    $recentComplaints = \App\Models\Complaint::where('user_id', $userId)->latest()->take(5)->get();
+
+    return view('dashboard', compact('totalComplaints', 'pendingComplaints', 'resolvedComplaints', 'recentComplaints'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -43,6 +50,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/complaints/{complaint}', [AdminController::class, 'show'])->name('admin.complaints.show');
     Route::put('/complaints/{complaint}', [AdminController::class, 'update'])->name('admin.complaints.update');
     Route::delete('/complaints/{complaint}', [AdminController::class, 'destroy'])->name('admin.complaints.destroy');
+    
+    // Category Management
+    Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class)->names('admin.categories');
+
+    // Analytics
+    Route::get('/analytics', [\App\Http\Controllers\Admin\AnalyticsController::class, 'index'])->name('admin.analytics');
 });
 
 // FeedbackController

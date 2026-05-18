@@ -38,7 +38,19 @@ class ComplaintController extends Controller
             'title' => 'required|min:5',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|min:10',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'block' => 'nullable|string|max:50',
+            'floor' => 'nullable|string|max:50',
+            'room_number' => 'nullable|string|max:50',
+            'area_location' => 'required|string|max:255',
+            'contact_number' => ['required', 'regex:/^[0-9]{10}$/'],
+            'availability_date' => 'required|date|after_or_equal:today',
+            'preferred_time_slot' => 'required|string'
+        ], [
+            'contact_number.required' => 'Contact number is required.',
+            'contact_number.regex' => 'Contact number must be exactly 10 digits (numbers only).',
+            'availability_date.after_or_equal' => 'Availability date cannot be a past date.',
+            'preferred_time_slot.required' => 'Please select a preferred visit time slot.',
         ]);
 
         $imagePath = null;
@@ -53,7 +65,16 @@ class ComplaintController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'image' => $imagePath,
-            'status' => 'Pending'
+            'status' => 'Pending',
+            'block' => $request->block,
+            'floor' => $request->floor,
+            'room_number' => $request->room_number,
+            'area_location' => $request->area_location,
+            'contact_number' => $request->contact_number,
+            'preferred_time_slot' => $request->preferred_time_slot,
+            'availability_date' => $request->availability_date,
+            'is_urgent' => $request->has('is_urgent') ? true : false,
+            'is_anonymous' => $request->has('is_anonymous') ? true : false,
         ]);
 
         return redirect()->route('complaints.index')->with('success', 'Complaint submitted successfully');
@@ -87,13 +108,26 @@ class ComplaintController extends Controller
             'title' => 'required|min:5',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|min:10',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'contact_number' => ['nullable', 'regex:/^[0-9]{10}$/'],
+            'availability_date' => 'nullable|date',
+            'preferred_time_slot' => 'nullable|string'
+        ], [
+            'contact_number.regex' => 'Contact number must be exactly 10 digits (numbers only).',
         ]);
 
         $data = [
             'title' => $request->title,
             'category_id' => $request->category_id,
-            'description' => $request->description
+            'description' => $request->description,
+            'block' => $request->block,
+            'floor' => $request->floor,
+            'room_number' => $request->room_number,
+            'area_location' => $request->area_location,
+            'contact_number' => $request->contact_number,
+            'preferred_time_slot' => $request->preferred_time_slot,
+            'availability_date' => $request->availability_date,
+            'is_urgent' => $request->has('is_urgent') ? true : false,
         ];
 
         if ($request->hasFile('image')) {
