@@ -74,6 +74,7 @@ class ComplaintController extends Controller
             'preferred_time_slot' => $request->preferred_time_slot,
             'availability_date' => $request->availability_date,
             'is_urgent' => $request->has('is_urgent') ? true : false,
+            'is_anonymous' => $request->has('is_anonymous') ? true : false,
         ]);
 
         return redirect()->route('complaints.index')->with('success', 'Complaint submitted successfully');
