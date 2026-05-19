@@ -1,1 +1,14 @@
 *.sqlite*
+.env
+*.log
+*.bak
+*.tmp
+*.swp
+.DS_Store
+node_modules/
+dist/
+build/
+coverage/
+.idea/
+.vscode/
+*.iml       
