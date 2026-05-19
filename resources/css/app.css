@@ -4,14 +4,15 @@
 
 @layer base {
   :root {
-    --primary: 99 102 241; /* Indigo 500 */
-    --primary-focus: 79 70 229; /* Indigo 600 */
+    --portal-primary: 30 58 138;
+    --portal-primary-hover: 29 78 216;
+    --portal-accent: 16 185 129;
   }
+
   body {
-    @apply bg-slate-50 text-slate-800 antialiased font-sans selection:bg-indigo-200 selection:text-indigo-900;
+    @apply bg-slate-50 text-slate-800 antialiased font-sans selection:bg-portal-200 selection:text-portal-950;
   }
-  
-  /* Custom scrollbar */
+
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -25,82 +26,106 @@
 }
 
 @layer components {
-  /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 border cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 border cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:pointer-events-none;
   }
   .btn-primary {
-    @apply bg-indigo-600 text-white border-transparent hover:bg-indigo-700 shadow-md shadow-indigo-200 hover:shadow-lg hover:shadow-indigo-300 hover:-translate-y-0.5 focus:ring-indigo-500;
+    @apply bg-portal-900 text-white border-transparent hover:bg-portal-800 shadow-md shadow-portal-900/20 hover:shadow-lg hover:shadow-portal-900/25 hover:-translate-y-0.5 focus:ring-portal-700;
   }
   .btn-secondary {
-    @apply bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300 shadow-sm hover:shadow hover:-translate-y-0.5 focus:ring-slate-500;
+    @apply bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300 shadow-sm hover:shadow hover:-translate-y-0.5 focus:ring-slate-400;
   }
   .btn-danger {
-    @apply bg-rose-600 text-white border-transparent hover:bg-rose-700 shadow-md shadow-rose-200 hover:shadow-lg hover:shadow-rose-300 hover:-translate-y-0.5 focus:ring-rose-500;
+    @apply bg-rose-600 text-white border-transparent hover:bg-rose-700 shadow-md shadow-rose-200 hover:shadow-lg hover:-translate-y-0.5 focus:ring-rose-500;
   }
   .btn-outline {
-    @apply bg-transparent text-indigo-600 border-indigo-200 hover:bg-indigo-50 hover:border-indigo-300 focus:ring-indigo-500;
+    @apply bg-transparent text-portal-800 border-portal-200 hover:bg-portal-50 hover:border-portal-300 focus:ring-portal-600;
   }
-  
-  /* Cards */
-  .card {
-    @apply bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300 overflow-hidden relative;
-  }
-  .card-glass {
-    @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl;
+  .btn-ghost {
+    @apply bg-transparent border-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900 shadow-none focus:ring-slate-400;
   }
 
-  /* Badges */
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-slate-100/80 hover:shadow-portal transition-shadow duration-300 overflow-hidden relative;
+  }
+  .card-glass {
+    @apply bg-white/75 backdrop-blur-xl border border-white/60 shadow-glass;
+  }
+  .card-elevated {
+    @apply bg-white rounded-2xl shadow-portal-lg border border-slate-100 ring-1 ring-slate-900/5;
+  }
+
   .badge {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border;
   }
   .badge-pending {
-    @apply bg-amber-50 text-amber-700 border-amber-200/60 shadow-sm shadow-amber-100;
+    @apply bg-amber-50 text-amber-800 border-amber-200/70 shadow-sm;
   }
   .badge-resolved {
-    @apply bg-emerald-50 text-emerald-700 border-emerald-200/60 shadow-sm shadow-emerald-100;
+    @apply bg-emerald-50 text-emerald-800 border-emerald-200/70 shadow-sm;
   }
   .badge-in-progress {
-    @apply bg-blue-50 text-blue-700 border-blue-200/60 shadow-sm shadow-blue-100;
+    @apply bg-sky-50 text-sky-800 border-sky-200/70 shadow-sm;
   }
   .badge-rejected {
-    @apply bg-rose-50 text-rose-700 border-rose-200/60 shadow-sm shadow-rose-100;
+    @apply bg-rose-50 text-rose-800 border-rose-200/70 shadow-sm;
   }
 
-  /* Forms */
-  .form-input {
-    @apply block w-full rounded-xl border-slate-200 bg-slate-50/50 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 sm:text-sm;
-  }
-  .form-select {
-    @apply block w-full rounded-xl border-slate-200 bg-slate-50/50 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 sm:text-sm;
-  }
+  .form-input,
+  .form-select,
   .form-textarea {
-    @apply block w-full rounded-xl border-slate-200 bg-slate-50/50 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 sm:text-sm;
+    @apply block w-full rounded-xl border-slate-200 bg-slate-50/80 shadow-sm transition-all duration-200 focus:border-portal-600 focus:bg-white focus:ring-4 focus:ring-portal-500/10 sm:text-sm;
   }
   .form-label {
     @apply block text-sm font-semibold text-slate-700 mb-1.5;
   }
-  
-  /* Layout */
+
   .glass-header {
-    @apply bg-white/80 backdrop-blur-lg border-b border-slate-100/80 sticky top-0 z-40;
+    @apply bg-white/85 backdrop-blur-xl border-b border-slate-200/60 sticky top-0 z-50 shadow-sm;
+  }
+
+  .nav-link-active {
+    @apply text-portal-900 bg-portal-50 border-portal-200;
+  }
+  .nav-link-inactive {
+    @apply text-slate-600 hover:text-portal-900 hover:bg-slate-50 border-transparent;
+  }
+
+  .page-shell {
+    @apply min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-white to-slate-50;
+  }
+
+  .table-premium thead {
+    @apply bg-slate-50/90;
+  }
+  .table-premium th {
+    @apply px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider;
+  }
+  .table-premium tbody tr {
+    @apply hover:bg-portal-50/30 transition-colors duration-150;
+  }
+  .table-premium td {
+    @apply px-6 py-4 text-sm;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-slate-200 rounded-lg;
+  }
+
+  .hero-gradient {
+    @apply bg-gradient-to-br from-portal-950 via-portal-900 to-portal-800;
+  }
+
+  .text-gradient-portal {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-200;
   }
 }
 
 @layer utilities {
   .animate-fade-in {
-    animation: fadeIn 0.4s ease-out forwards;
+    animation: fadeIn 0.5s ease-out forwards;
   }
   .animate-slide-up {
     animation: slideUp 0.5s ease-out forwards;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
   }
 }

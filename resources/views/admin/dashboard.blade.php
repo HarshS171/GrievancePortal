@@ -35,9 +35,9 @@
 
                 <!-- Total Complaints -->
                 <div class="card relative overflow-hidden group">
-                    <div class="absolute right-0 top-0 w-32 h-32 bg-indigo-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-portal-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                     <div class="relative z-10 flex items-center p-2">
-                        <div class="p-4 rounded-2xl bg-indigo-50/80 text-indigo-600 mr-5 border border-indigo-100/50 shadow-sm">
+                        <div class="p-4 rounded-2xl bg-portal-50/80 text-portal-700 mr-5 border border-portal-100/50 shadow-sm">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                         </div>
                         <div>
@@ -77,17 +77,17 @@
             </div>
 
             <!-- Manage Actions -->
-            <div class="card p-12 text-center bg-gradient-to-br from-indigo-600 to-purple-700 text-white relative overflow-hidden border-0 shadow-lg shadow-indigo-200">
+            <div class="card p-12 text-center bg-gradient-to-br from-portal-950 via-portal-800 to-portal-700 text-white relative overflow-hidden border-0 shadow-lg shadow-portal-900/30">
                 <div class="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-                <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"></div>
+                <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl"></div>
                 
                 <div class="relative z-10">
                     <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/10 backdrop-blur-md mb-6 shadow-inner border border-white/20">
                         <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                     </div>
                     <h3 class="text-3xl font-bold mb-3 tracking-tight">Manage Grievances System</h3>
-                    <p class="text-indigo-100 mb-8 max-w-xl mx-auto text-lg leading-relaxed">Access the centralized administrative panel to review, assign, update statuses, and add official remarks to citizen complaints efficiently.</p>
-                    <a href="{{ route('admin.complaints') }}" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-base font-bold bg-white text-indigo-600 rounded-xl hover:bg-slate-50 transition-all shadow-md hover:shadow-xl hover:-translate-y-1">
+                    <p class="text-portal-100 mb-8 max-w-xl mx-auto text-lg leading-relaxed">Access the centralized administrative panel to review, assign, update statuses, and add official remarks to citizen complaints efficiently.</p>
+                    <a href="{{ route('admin.complaints') }}" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-base font-bold bg-white text-portal-700 rounded-xl hover:bg-slate-50 transition-all shadow-md hover:shadow-xl hover:-translate-y-1">
                         Go to Control Panel
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>

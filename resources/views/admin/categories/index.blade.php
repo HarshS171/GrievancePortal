@@ -16,7 +16,7 @@
                 <div class="md:col-span-1">
                     <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100 sticky top-6">
                         <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
-                            <div class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-portal-50 text-portal-700 flex items-center justify-center">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                             </div>
                             <h3 class="text-lg font-bold text-slate-900 tracking-tight">Add New Category</h3>
@@ -24,13 +24,13 @@
                         <form action="{{ route('admin.categories.store') }}" method="POST" class="space-y-6">
                             @csrf
                             <div class="group">
-                                <label for="name" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors">Category Name</label>
+                                <label for="name" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-portal-700 transition-colors">Category Name</label>
                                 <input type="text" name="name" id="name" class="form-input w-full @error('name') border-rose-300 ring-rose-200 @enderror" placeholder="e.g., Electricity" required>
                                 @error('name')
                                     <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary w-full py-2.5 shadow-lg shadow-indigo-200">
+                            <button type="submit" class="btn btn-primary w-full py-2.5 shadow-lg shadow-portal-200">
                                 Add Category
                             </button>
                         </form>
@@ -52,16 +52,16 @@
                                 @forelse($categories as $category)
                                     <tr class="hover:bg-slate-50/60 transition-colors group">
                                         <td class="px-6 py-5 whitespace-nowrap">
-                                            <div class="text-sm font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors">{{ $category->name }}</div>
+                                            <div class="text-sm font-extrabold text-slate-900 group-hover:text-portal-700 transition-colors">{{ $category->name }}</div>
                                         </td>
                                         <td class="px-6 py-5 whitespace-nowrap">
-                                            <span class="inline-flex items-center justify-center min-w-[2rem] px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100/60">
+                                            <span class="inline-flex items-center justify-center min-w-[2rem] px-2.5 py-1 rounded-md text-xs font-bold bg-portal-50 text-portal-700 border border-portal-100/60">
                                                 {{ $category->complaints_count }}
                                             </span>
                                         </td>
                                         <td class="px-6 py-5 whitespace-nowrap text-right text-sm font-medium">
                                             <div class="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button type="button" @click="editingCategory = {{ $category->id }}; categoryName = '{{ addslashes($category->name) }}'" class="text-indigo-600 hover:text-indigo-800 font-bold transition-colors p-2 rounded-lg hover:bg-indigo-50">
+                                                <button type="button" @click="editingCategory = {{ $category->id }}; categoryName = '{{ addslashes($category->name) }}'" class="text-portal-700 hover:text-portal-800 font-bold transition-colors p-2 rounded-lg hover:bg-portal-50">
                                                     Edit
                                                 </button>
                                                 <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this category?');">
@@ -109,14 +109,14 @@
                                 <div class="w-full">
                                     <h3 class="text-xl font-bold text-slate-900 tracking-tight mb-6" id="modal-title">Edit Category</h3>
                                     <div class="group">
-                                        <label for="edit_name" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors">Category Name</label>
+                                        <label for="edit_name" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-portal-700 transition-colors">Category Name</label>
                                         <input type="text" name="name" id="edit_name" x-model="categoryName" class="form-input w-full" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-slate-50 px-6 py-4 sm:px-8 sm:flex sm:flex-row-reverse border-t border-slate-100 gap-3">
-                            <button type="submit" class="btn btn-primary w-full sm:w-auto py-2.5 px-6 shadow-md shadow-indigo-200">
+                            <button type="submit" class="btn btn-primary w-full sm:w-auto py-2.5 px-6 shadow-md shadow-portal-200">
                                 Save Changes
                             </button>
                             <button type="button" @click="editingCategory = null" class="mt-3 sm:mt-0 btn btn-secondary w-full sm:w-auto py-2.5 px-6 border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900">

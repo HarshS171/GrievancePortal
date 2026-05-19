@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="mb-8 text-center">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-50 text-indigo-600 mb-6 shadow-sm border border-indigo-100/50">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-portal-50 text-portal-700 mb-6 shadow-sm border border-portal-100/50">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         </div>
         <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Check your email</h2>
@@ -17,7 +17,7 @@
     <div class="flex flex-col gap-4">
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
-            <button type="submit" class="btn btn-primary w-full py-2.5 shadow-lg shadow-indigo-200 text-base">
+            <button type="submit" class="btn btn-primary w-full py-2.5 shadow-lg shadow-portal-200 text-base">
                 Resend Verification Email
             </button>
         </form>

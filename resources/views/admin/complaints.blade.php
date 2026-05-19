@@ -3,7 +3,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 animate-fade-in">
             <div>
                 <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Manage Complaints</h2>
-                <p class="mt-2 text-sm text-slate-500 font-medium">Total of <span class="font-bold text-indigo-600">{{ $complaints->count() }}</span> records found in the system.</p>
+                <p class="mt-2 text-sm text-slate-500 font-medium">Total of <span class="font-bold text-portal-700">{{ $complaints->count() }}</span> records found in the system.</p>
             </div>
             <div class="flex gap-3">
                 <button class="btn btn-secondary inline-flex border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50 shadow-sm">
@@ -20,17 +20,17 @@
             <div class="bg-white/80 backdrop-blur-xl p-5 rounded-2xl shadow-sm border border-slate-200/60 mb-8">
                 <form action="{{ route('admin.complaints') }}" method="GET" class="flex flex-col md:flex-row gap-4 items-end">
                     <div class="flex-grow w-full relative group">
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 group-focus-within:text-indigo-600 transition-colors">Search</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 group-focus-within:text-portal-700 transition-colors">Search</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                <svg class="h-5 w-5 text-slate-400 group-focus-within:text-portal-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                             <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by title, description, or ID..." class="form-input pl-11 py-2.5 bg-white w-full" >
                         </div>
                     </div>
                     
                     <div class="w-full md:w-56 group">
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 group-focus-within:text-indigo-600 transition-colors">Status</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 group-focus-within:text-portal-700 transition-colors">Status</label>
                         <select name="status" class="form-select py-2.5 bg-white w-full">
                             <option value="">All Statuses</option>
                             <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="w-full md:w-56 group">
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 group-focus-within:text-indigo-600 transition-colors">Category</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 group-focus-within:text-portal-700 transition-colors">Category</label>
                         <select name="category_id" class="form-select py-2.5 bg-white w-full">
                             <option value="">All Categories</option>
                             @foreach($categories as $category)
@@ -86,10 +86,10 @@
                                 @foreach($complaints as $complaint)
                                     <tr class="hover:bg-slate-50/60 transition-colors group">
                                         <td class="px-6 py-5">
-                                            <div class="text-sm font-extrabold text-slate-900 mb-1.5 group-hover:text-indigo-600 transition-colors">{{ Str::limit($complaint->title, 50) }}</div>
+                                            <div class="text-sm font-extrabold text-slate-900 mb-1.5 group-hover:text-portal-700 transition-colors">{{ Str::limit($complaint->title, 50) }}</div>
                                             <div class="flex items-center gap-2">
-                                                <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100/60 flex items-center gap-1">
-                                                    <div class="w-1.5 h-1.5 rounded-full bg-indigo-400"></div>
+                                                <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-portal-50 text-portal-700 border border-portal-100/60 flex items-center gap-1">
+                                                    <div class="w-1.5 h-1.5 rounded-full bg-portal-500"></div>
                                                     {{ $complaint->category->name ?? 'N/A' }}
                                                 </span>
                                                 <span class="text-xs text-slate-400 font-bold tracking-wider">#{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }}</span>
@@ -101,7 +101,7 @@
                                                     <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-500 border border-slate-200">?</div>
                                                     <div class="text-sm font-bold text-slate-500 italic">Anonymous</div>
                                                 @else
-                                                    <div class="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700 border border-indigo-200/60 shadow-sm">
+                                                    <div class="w-9 h-9 rounded-full bg-portal-100 flex items-center justify-center text-sm font-bold text-portal-700 border border-portal-200/60 shadow-sm">
                                                         {{ strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}
                                                     </div>
                                                     <div class="text-sm font-bold text-slate-900">{{ $complaint->user->name ?? 'Unknown' }}</div>
@@ -134,7 +134,7 @@
                                             {{ $complaint->created_at->format('M d, Y') }}
                                         </td>
                                         <td class="px-6 py-5 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('admin.complaints.show', $complaint->id) }}" class="btn btn-secondary text-sm px-4 py-2 border-slate-200 text-slate-700 hover:text-indigo-700 hover:border-indigo-200 shadow-sm">Manage</a>
+                                            <a href="{{ route('admin.complaints.show', $complaint->id) }}" class="btn btn-secondary text-sm px-4 py-2 border-slate-200 text-slate-700 hover:text-portal-700 hover:border-portal-200 shadow-sm">Manage</a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -56,8 +56,8 @@
                         <div class="px-8 py-6 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
                             <h3 class="text-2xl font-bold text-slate-900 leading-tight flex-grow">{{ $complaint->title }}</h3>
                             <div class="shrink-0">
-                                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold bg-indigo-50 text-indigo-700 border border-indigo-100/60 shadow-sm shadow-indigo-100/50">
-                                    <div class="w-5 h-5 rounded flex items-center justify-center bg-indigo-100 text-indigo-600">
+                                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold bg-portal-50 text-portal-700 border border-portal-100/60 shadow-sm shadow-portal-100/50">
+                                    <div class="w-5 h-5 rounded flex items-center justify-center bg-portal-100 text-portal-700">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
                                     </div>
                                     {{ $complaint->category->name ?? 'Uncategorized' }}
@@ -70,17 +70,17 @@
                             </div>
                         </div>
                         @if($complaint->category && ($complaint->category->officer_name || $complaint->category->officer_phone))
-                        <div class="px-8 py-4 bg-indigo-50/50 border-t border-indigo-100 flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center">
-                            <span class="text-sm font-bold text-indigo-900">Assigned Officer:</span>
+                        <div class="px-8 py-4 bg-portal-50/50 border-t border-portal-100 flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center">
+                            <span class="text-sm font-bold text-portal-900">Assigned Officer:</span>
                             @if($complaint->category->officer_name)
-                            <div class="flex items-center gap-2 text-sm font-medium text-indigo-700">
-                                <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            <div class="flex items-center gap-2 text-sm font-medium text-portal-700">
+                                <svg class="w-4 h-4 text-portal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                                 {{ $complaint->category->officer_name }}
                             </div>
                             @endif
                             @if($complaint->category->officer_phone)
-                            <div class="flex items-center gap-2 text-sm font-medium text-indigo-700">
-                                <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            <div class="flex items-center gap-2 text-sm font-medium text-portal-700">
+                                <svg class="w-4 h-4 text-portal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                                 {{ $complaint->category->officer_phone }}
                             </div>
                             @endif
@@ -157,7 +157,7 @@
                             </div>
                             <h4 class="text-lg font-bold text-slate-900 tracking-tight">Attached Media</h4>
                         </div>
-                        <div class="rounded-xl overflow-hidden border-2 border-dashed border-slate-200 bg-slate-50 flex justify-center p-2 group hover:border-indigo-300 transition-colors">
+                        <div class="rounded-xl overflow-hidden border-2 border-dashed border-slate-200 bg-slate-50 flex justify-center p-2 group hover:border-portal-400 transition-colors">
                             <a href="{{ asset('storage/' . $complaint->image) }}" target="_blank" class="relative block rounded-lg overflow-hidden w-full">
                                 <img src="{{ asset('storage/' . $complaint->image) }}" alt="Complaint Attachment" class="w-full h-auto object-contain max-h-[500px] rounded-lg">
                                 <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -214,7 +214,7 @@
                             @method('PUT')
                             
                             <div class="group">
-                                <label for="status" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors">Current Status</label>
+                                <label for="status" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-portal-700 transition-colors">Current Status</label>
                                 <select name="status" id="status" class="form-select w-full bg-slate-50 group-hover:bg-white transition-colors">
                                     <option value="Pending" {{ $complaint->status == 'Pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="In Progress" {{ $complaint->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
@@ -224,14 +224,14 @@
                             </div>
 
                             <div class="group">
-                                <label for="admin_remark" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-indigo-600 transition-colors">Admin Remark (Optional)</label>
+                                <label for="admin_remark" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-portal-700 transition-colors">Admin Remark (Optional)</label>
                                 <textarea name="admin_remark" id="admin_remark" rows="5" class="form-textarea w-full bg-slate-50 group-hover:bg-white transition-colors @error('admin_remark') border-rose-300 ring-rose-200 @enderror" placeholder="Enter resolution details or remarks sent to citizen...">{{ $complaint->admin_remark }}</textarea>
                                 @error('admin_remark')
                                     <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-full py-3 shadow-lg shadow-indigo-200 text-base">
+                            <button type="submit" class="btn btn-primary w-full py-3 shadow-lg shadow-portal-200 text-base">
                                 Save Changes
                             </button>
                         </form>

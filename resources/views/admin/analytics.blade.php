@@ -22,10 +22,10 @@
 
             {{-- KPI Summary Cards --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100 hover:ring-indigo-100 hover:-translate-y-1 transition-all group">
+                <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100 hover:ring-portal-100 hover:-translate-y-1 transition-all group">
                     <div class="flex items-center justify-between mb-4">
-                        <p class="text-xs font-extrabold text-slate-500 uppercase tracking-wider group-hover:text-indigo-600 transition-colors">Total</p>
-                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <p class="text-xs font-extrabold text-slate-500 uppercase tracking-wider group-hover:text-portal-700 transition-colors">Total</p>
+                        <div class="w-10 h-10 rounded-xl bg-portal-50 text-portal-700 flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         </div>
                     </div>
@@ -157,8 +157,8 @@
     @push('scripts')
     <script>
         const palette = [
-            '#6366f1','#8b5cf6','#ec4899','#f59e0b','#10b981',
-            '#3b82f6','#ef4444','#14b8a6','#f97316','#84cc16'
+            '#1e3a8a','#1d4ed8','#2563eb','#10b981','#f59e0b',
+            '#0ea5e9','#ef4444','#14b8a6','#64748b','#059669'
         ];
 
         Chart.defaults.font.family = "'Inter', sans-serif";
@@ -173,17 +173,17 @@
                 datasets: [{
                     label: 'Complaints',
                     data: @json($lineData->values()),
-                    borderColor: '#6366f1',
+                    borderColor: '#1e40af',
                     backgroundColor: (context) => {
                         const ctx = context.chart.ctx;
                         const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                        gradient.addColorStop(0, 'rgba(99,102,241,0.2)');
-                        gradient.addColorStop(1, 'rgba(99,102,241,0)');
+                        gradient.addColorStop(0, 'rgba(30,64,175,0.25)');
+                        gradient.addColorStop(1, 'rgba(30,64,175,0)');
                         return gradient;
                     },
                     borderWidth: 3,
                     pointBackgroundColor: '#ffffff',
-                    pointBorderColor: '#6366f1',
+                    pointBorderColor: '#1e40af',
                     pointBorderWidth: 2,
                     pointRadius: 4,
                     pointHoverRadius: 6,

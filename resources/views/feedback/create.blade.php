@@ -3,7 +3,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 animate-fade-in">
             <div>
                 <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Rate Your Experience</h2>
-                <p class="mt-2 text-sm text-slate-500 font-medium">Share your feedback for complaint <span class="font-bold text-indigo-600 px-2 py-0.5 bg-indigo-50 rounded-md border border-indigo-100">#{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }}</span></p>
+                <p class="mt-2 text-sm text-slate-500 font-medium">Share your feedback for complaint <span class="font-bold text-portal-700 px-2 py-0.5 bg-portal-50 rounded-md border border-portal-100">#{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }}</span></p>
             </div>
             <a href="{{ route('complaints.show', $complaint) }}" class="btn btn-secondary inline-flex items-center gap-2 shadow-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -16,13 +16,13 @@
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 animate-slide-up">
 
             <!-- Resolved Complaint Reference -->
-            <div class="bg-indigo-50 border border-indigo-100/60 rounded-2xl p-6 mb-8 flex items-center gap-5 shadow-sm">
-                <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white shrink-0 shadow-md shadow-indigo-200">
+            <div class="bg-portal-50 border border-portal-100/60 rounded-2xl p-6 mb-8 flex items-center gap-5 shadow-sm">
+                <div class="w-12 h-12 rounded-full bg-portal-700 flex items-center justify-center text-white shrink-0 shadow-md shadow-portal-200">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <div>
-                    <p class="text-base font-extrabold text-indigo-950">{{ $complaint->title }}</p>
-                    <p class="text-sm font-medium text-indigo-600/80 mt-1">Resolved by administration &bull; {{ $complaint->category->name ?? '' }}</p>
+                    <p class="text-base font-extrabold text-portal-950">{{ $complaint->title }}</p>
+                    <p class="text-sm font-medium text-portal-700/80 mt-1">Resolved by administration &bull; {{ $complaint->category->name ?? '' }}</p>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
 
                     <!-- Comment -->
                     <div class="group">
-                        <label for="comment" class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-indigo-600 transition-colors">Your Comment</label>
+                        <label for="comment" class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-portal-700 transition-colors">Your Comment</label>
                         <textarea
                             name="comment"
                             id="comment"
@@ -90,7 +90,7 @@
                     <!-- Submit -->
                     <div class="flex flex-col-reverse sm:flex-row gap-4 justify-end pt-8 border-t border-slate-100">
                         <a href="{{ route('complaints.show', $complaint) }}" class="btn btn-secondary text-center">Cancel</a>
-                        <button type="submit" class="btn btn-primary px-8 py-3 shadow-lg shadow-indigo-200 text-base">
+                        <button type="submit" class="btn btn-primary px-8 py-3 shadow-lg shadow-portal-200 text-base">
                             Submit Feedback
                         </button>
                     </div>

@@ -21,9 +21,9 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Total Card -->
                 <div class="card relative overflow-hidden group">
-                    <div class="absolute right-0 top-0 w-32 h-32 bg-indigo-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-portal-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                     <div class="relative z-10 flex items-center p-2">
-                        <div class="p-4 rounded-2xl bg-indigo-50/80 text-indigo-600 mr-5 border border-indigo-100/50 shadow-sm">
+                        <div class="p-4 rounded-2xl bg-portal-50/80 text-portal-700 mr-5 border border-portal-100/50 shadow-sm">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                         </div>
                         <div>
@@ -66,7 +66,7 @@
             <div class="card p-0 overflow-hidden border-slate-200/60 shadow-sm">
                 <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center bg-white/50">
                     <h3 class="text-lg font-bold text-slate-800">Recent Complaints</h3>
-                    <a href="{{ route('complaints.index') }}" class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors flex items-center gap-1">
+                    <a href="{{ route('complaints.index') }}" class="text-sm font-semibold text-portal-700 hover:text-portal-700 transition-colors flex items-center gap-1">
                         View all <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
                 </div>
@@ -109,7 +109,7 @@
                                         {{ $complaint->created_at->format('M d, Y') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{{ route('complaints.show', $complaint) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+                                        <a href="{{ route('complaints.show', $complaint) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-portal-50 text-portal-700 hover:bg-portal-700 hover:text-white transition-all opacity-0 group-hover:opacity-100">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                         </a>
                                     </td>

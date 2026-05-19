@@ -5,7 +5,7 @@
                 <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">My Complaints</h2>
                 <p class="mt-2 text-sm text-slate-500">History and current status of all your submitted grievances.</p>
             </div>
-            <a href="{{ route('complaints.create') }}" class="btn btn-primary inline-flex group shadow-lg shadow-indigo-200">
+            <a href="{{ route('complaints.create') }}" class="btn btn-primary inline-flex group shadow-lg shadow-portal-200">
                 <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 New Complaint
             </a>
@@ -22,7 +22,7 @@
                         <label for="search" class="sr-only">Search</label>
                         <div class="relative group">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                <svg class="h-5 w-5 text-slate-400 group-focus-within:text-portal-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                             </div>
                             <input type="text" name="search" id="search" value="{{ request('search') }}" class="form-input pl-11 py-3 bg-white" placeholder="Search by title, description or ID...">
                         </div>
@@ -39,11 +39,11 @@
             <!-- Complaints List -->
             <div class="space-y-5">
                 @forelse($complaints as $complaint)
-                    <div class="card bg-white p-6 md:p-8 hover:border-indigo-100 group transition-all duration-300">
+                    <div class="card bg-white p-6 md:p-8 hover:border-portal-100 group transition-all duration-300">
                         <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
                             <div class="flex-grow space-y-4">
                                 <div class="flex items-start justify-between gap-4">
-                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight">{{ $complaint->title }}</h3>
+                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-portal-700 transition-colors leading-tight">{{ $complaint->title }}</h3>
                                     <div class="flex-shrink-0 flex gap-2">
                                         @if($complaint->is_urgent)
                                             <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200/60">
@@ -69,15 +69,15 @@
                                 
                                 <div class="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
                                     <div class="flex items-center gap-2 text-sm font-semibold text-slate-700 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
-                                        <div class="w-6 h-6 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                                        <div class="w-6 h-6 rounded-md bg-portal-100 text-portal-700 flex items-center justify-center">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
                                         </div>
                                         {{ $complaint->category->name ?? 'Uncategorized' }}
                                     </div>
                                     
                                     @if($complaint->category && $complaint->category->officer_name)
-                                    <div class="flex items-center gap-2 text-sm font-semibold text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100/50">
-                                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                    <div class="flex items-center gap-2 text-sm font-semibold text-portal-700 bg-portal-50 px-3 py-1.5 rounded-lg border border-portal-100/50">
+                                        <svg class="w-4 h-4 text-portal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                                         Officer: {{ $complaint->category->officer_name }}
                                     </div>
                                     @endif
@@ -97,7 +97,7 @@
                             </div>
                             
                             <div class="flex flex-col gap-3 min-w-[140px] border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6 justify-center">
-                                <a href="{{ route('complaints.show', $complaint) }}" class="btn btn-secondary w-full text-center shadow-none hover:border-indigo-200 hover:text-indigo-700">View Details</a>
+                                <a href="{{ route('complaints.show', $complaint) }}" class="btn btn-secondary w-full text-center shadow-none hover:border-portal-200 hover:text-portal-700">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                         @if(request('search'))
                             <a href="{{ route('complaints.index') }}" class="btn btn-secondary px-8">Clear Search</a>
                         @else
-                            <a href="{{ route('complaints.create') }}" class="btn btn-primary px-8 shadow-lg shadow-indigo-200">File a Complaint</a>
+                            <a href="{{ route('complaints.create') }}" class="btn btn-primary px-8 shadow-lg shadow-portal-200">File a Complaint</a>
                         @endif
                     </div>
                 @endforelse

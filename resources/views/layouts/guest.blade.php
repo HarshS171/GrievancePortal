@@ -7,34 +7,68 @@
     <title>{{ config('app.name', 'Grievance Portal') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased text-slate-900 bg-slate-50 selection:bg-indigo-500 selection:text-white">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-50 via-white to-slate-100">
-        
-        <!-- Background decoration -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-            <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-indigo-100/40 blur-3xl"></div>
-            <div class="absolute top-[20%] -right-[10%] w-[40%] h-[40%] rounded-full bg-blue-100/40 blur-3xl"></div>
-        </div>
-
-        <div class="relative z-10 w-full sm:max-w-md mt-6 px-6 py-8 bg-white shadow-2xl shadow-indigo-100/50 sm:rounded-3xl border border-slate-100 animate-slide-up">
-            <div class="flex justify-center mb-8">
-                <a href="/" class="group flex flex-col items-center gap-3">
-                    <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-200 group-hover:scale-110 group-hover:rotate-3 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
-                    </div>
-                    <span class="font-extrabold text-xl text-slate-900 tracking-tight">GrievancePortal</span>
-                </a>
+<body class="font-sans antialiased min-h-screen bg-slate-950 text-white selection:bg-emerald-400 selection:text-slate-900">
+    <div class="min-h-screen flex flex-col lg:flex-row">
+        {{-- Brand panel --}}
+        <div class="relative lg:w-[45%] xl:w-[42%] min-h-[220px] lg:min-h-screen hero-gradient overflow-hidden flex flex-col justify-between p-8 sm:p-12">
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl animate-float"></div>
+                <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                <div class="absolute top-1/3 -left-20 w-64 h-64 rounded-full bg-white/5 blur-2xl"></div>
             </div>
 
-            {{ $slot }}
+            <a href="{{ url('/') }}" class="relative z-10">
+                <x-portal-logo size="lg" :show-text="true" class="[&_span]:text-white [&_span:last-child]:text-emerald-200/80" />
+            </a>
+
+            <div class="relative z-10 mt-8 lg:mt-0 max-w-md">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 border border-white/20 text-emerald-200 mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Official Portal
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight">
+                    Transparent grievance redressal for every citizen.
+                </h1>
+                <p class="mt-4 text-base text-blue-100/90 leading-relaxed">
+                    Lodge complaints, track resolution in real time, and hold public authorities accountable through a secure digital channel.
+                </p>
+                <ul class="mt-8 space-y-3 text-sm font-medium text-blue-100/80">
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </span>
+                        End-to-end status tracking
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </span>
+                        Direct officer assignment
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </span>
+                        Verified resolution feedback
+                    </li>
+                </ul>
+            </div>
+
+            <p class="relative z-10 text-xs text-blue-200/60 mt-8 hidden lg:block">&copy; {{ date('Y') }} Grievance Redressal System</p>
         </div>
-        
-        <p class="mt-8 text-sm font-medium text-slate-500 relative z-10">
-            &copy; {{ date('Y') }} GrievancePortal. All rights reserved.
-        </p>
+
+        {{-- Form panel --}}
+        <div class="flex-1 flex flex-col justify-center items-center px-6 py-10 sm:px-12 bg-slate-50">
+            <div class="w-full max-w-md animate-slide-up">
+                <div class="card-elevated p-8 sm:p-10 bg-white">
+                    {{ $slot }}
+                </div>
+                <p class="mt-8 text-center text-sm text-slate-500 lg:hidden">&copy; {{ date('Y') }} Grievance Redressal System</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

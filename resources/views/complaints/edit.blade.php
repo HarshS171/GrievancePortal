@@ -20,7 +20,7 @@
                     @method('PUT')
 
                     <div class="group">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-indigo-600 transition-colors">Title</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-portal-700 transition-colors">Title</label>
                         <input type="text" name="title" class="form-input w-full @error('title') border-rose-300 ring-rose-200 @enderror" value="{{ old('title', $complaint->title) }}" required>
                         @error('title')
                             <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p>
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="group">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-indigo-600 transition-colors">Category</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-portal-700 transition-colors">Category</label>
                         <select name="category_id" class="form-input w-full bg-white @error('category_id') border-rose-300 ring-rose-200 @enderror" required>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ old('category_id', $complaint->category_id) == $category->id ? 'selected' : '' }}>
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="group">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-indigo-600 transition-colors">Detailed Description</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-portal-700 transition-colors">Detailed Description</label>
                         <textarea name="description" rows="6" class="form-input w-full resize-y @error('description') border-rose-300 ring-rose-200 @enderror" required>{{ old('description', $complaint->description) }}</textarea>
                         @error('description')
                             <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p>
@@ -50,19 +50,19 @@
                     </div>
 
                     <div class="group">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-indigo-600 transition-colors">Update Attachment (Optional)</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-portal-700 transition-colors">Update Attachment (Optional)</label>
                         @if($complaint->image)
                             <div class="mb-4 p-4 bg-slate-50 border border-slate-200 rounded-xl">
                                 <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Current Attachment</p>
                                 <img src="{{ asset('storage/' . $complaint->image) }}" class="max-h-40 rounded-lg border border-slate-200 shadow-sm object-cover">
                             </div>
                         @endif
-                        <input type="file" name="image" class="form-input w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer pt-2">
+                        <input type="file" name="image" class="form-input w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-portal-50 file:text-portal-700 hover:file:bg-portal-100 cursor-pointer pt-2">
                     </div>
 
                     <div class="flex flex-col-reverse sm:flex-row items-center gap-4 pt-6 border-t border-slate-100">
                         <a href="{{ route('complaints.index') }}" class="btn btn-secondary w-full sm:w-auto text-center">Cancel</a>
-                        <button type="submit" class="btn btn-primary w-full sm:w-auto px-8 py-3 shadow-lg shadow-indigo-200">
+                        <button type="submit" class="btn btn-primary w-full sm:w-auto px-8 py-3 shadow-lg shadow-portal-200">
                             Update Complaint
                         </button>
                     </div>
