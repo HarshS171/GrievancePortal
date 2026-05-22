@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::call(function () {
-    Complaint::where('status', 'Pending')
+    Complaint::whereNotIn('status', ['Resolved', 'Rejected'])
         ->where('is_escalated', false)
         ->where('created_at', '<', Carbon::now()->subHours(48))
         ->update(['is_escalated' => true]);

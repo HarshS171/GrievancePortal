@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     protected $fillable = [
-    'complaint_id',
-    'rating',
-    'comment'
-];
+        'complaint_id',
+        'rating',
+        'comment',
+        'work_image'
+    ];
 
     public function complaint()
     {

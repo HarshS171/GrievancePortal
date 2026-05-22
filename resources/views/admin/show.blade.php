@@ -190,6 +190,11 @@
                                 <div class="bg-white rounded-xl p-5 border border-amber-100 shadow-sm">
                                     <p class="text-amber-900 leading-relaxed italic">"{{ $complaint->feedback->comment }}"</p>
                                 </div>
+                                @if($complaint->feedback->work_image)
+                                    <div class="mt-4 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 shadow-sm">
+                                        <img src="{{ asset('storage/' . $complaint->feedback->work_image) }}" alt="Work Image" class="w-full h-auto object-contain max-h-[420px]">
+                                    </div>
+                                @endif
                                 <p class="mt-3 text-xs font-semibold text-amber-600/70">Submitted {{ $complaint->feedback->created_at->diffForHumans() }}</p>
                             </div>
                         </div>

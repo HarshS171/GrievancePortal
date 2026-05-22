@@ -33,7 +33,7 @@
                     <p class="text-slate-500 font-medium mt-2">Your feedback helps us improve our services.</p>
                 </div>
 
-                <form action="{{ route('feedback.store', $complaint) }}" method="POST" class="space-y-10" id="feedback-form">
+                <form action="{{ route('feedback.store', $complaint) }}" method="POST" enctype="multipart/form-data" class="space-y-10" id="feedback-form">
                     @csrf
 
                     <!-- Star Rating -->
@@ -83,6 +83,21 @@
                             required
                         >{{ old('comment') }}</textarea>
                         @error('comment')
+                            <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Work Image -->
+                    <div class="group">
+                        <label for="work_image" class="block text-sm font-semibold text-slate-700 mb-2 group-focus-within:text-portal-700 transition-colors">Upload Work Image (optional)</label>
+                        <input
+                            type="file"
+                            name="work_image"
+                            id="work_image"
+                            accept="image/*"
+                            class="form-input w-full bg-white"
+                        >
+                        @error('work_image')
                             <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p>
                         @enderror
                     </div>

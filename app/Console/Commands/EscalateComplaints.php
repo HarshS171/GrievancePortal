@@ -27,7 +27,7 @@ class EscalateComplaints extends Command
      */
     public function handle()
     {
-        $escalatedCount = Complaint::where('status', 'Pending')
+        $escalatedCount = Complaint::whereNotIn('status', ['Resolved', 'Rejected'])
             ->where('is_escalated', false)
             ->where('created_at', '<', Carbon::now()->subHours(48))
             ->update(['is_escalated' => true]);
