@@ -23,7 +23,7 @@
         .stat-number { font-size:32px; font-weight:600; color:#e8f4ff; line-height:1; }
         .btn-primary { background:#3b82f6; color:#fff; border:none; padding:9px 22px; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; }
         .btn-outline { background:transparent; color:rgba(255,255,255,0.65); border:1px solid rgba(255,255,255,0.2); padding:8px 20px; border-radius:8px; font-size:13px; }
-        .form-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #e8f4ff; font-size:14px; padding:10px 14px; width:100%; outline:none; }
+        .form-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #e8f4ff; font-size:14px; padding-top:10px; padding-bottom:10px; width:100%; outline:none; }
         .status-pending{ background:rgba(251,191,36,0.12); color:#fbbf24; border:1px solid rgba(251,191,36,0.28); border-radius:20px; padding:3px 12px; font-size:11px; font-weight:600; }
         .status-inprogress{ background:rgba(99,102,241,0.15); color:#a5b4fc; border:1px solid rgba(99,102,241,0.3); border-radius:20px; padding:3px 12px; font-size:11px; font-weight:600; }
         .status-resolved{ background:rgba(52,211,153,0.12); color:#34d399; border:1px solid rgba(52,211,153,0.28); border-radius:20px; padding:3px 12px; font-size:11px; font-weight:600; }
@@ -74,7 +74,7 @@
 
         @include('layouts.navigation')
 
-        <div class="flex-1 min-h-screen lg:overflow-hidden">
+        <div class="flex-1 min-h-screen lg:overflow-hidden lg:pl-80">
             @isset($header)
                 <header class="glass-header relative z-10 lg:sticky lg:top-0 lg:z-30">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 animate-slide-down">

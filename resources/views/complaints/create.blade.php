@@ -150,7 +150,7 @@
 
                         <div>
                             <label for="image" class="form-label">Evidence image (optional)</label>
-                            <div class="mt-2" style="border:2px dashed rgba(255,255,255,0.15);border-radius:10px;padding:2.5rem;text-align:center;background:rgba(255,255,255,0.03);cursor:pointer;">
+                            <div class="mt-2" style="border:2px dashed rgba(255,255,255,0.15);border-radius:10px;padding:2.5rem;text-align:center;background:rgba(255,255,255,0.03);cursor:pointer;transition:all .2s ease;" @mouseover="$el.style.borderColor='rgba(59,130,246,0.4)'; $el.style.background='rgba(59,130,246,0.05)'" @mouseout="$el.style.borderColor='rgba(255,255,255,0.15)'; $el.style.background='rgba(255,255,255,0.03)'" @click="$refs.imageInput.click()">
                                 <div style="font-size:28px;color:rgba(255,255,255,0.2);margin-bottom:8px;">
                                     <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-4m0 0l4 4m-4-4v12"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
                                 </div>
@@ -158,7 +158,7 @@
                                 <p style="color:rgba(255,255,255,0.3);font-size:12px;margin-top:6px;">PNG, JPG or JPEG. Max 2MB.</p>
                                 <p class="mt-3 text-xs text-slate-400" x-text="fileName" style="margin-top:8px;color:rgba(255,255,255,0.3);"></p>
                             </div>
-                            <input id="image" name="image" type="file" class="sr-only" accept="image/jpeg, image/png, image/jpg" x-on:change="fileName = $event.target.files.length ? $event.target.files[0].name : 'No file chosen'">
+                            <input id="image" x-ref="imageInput" name="image" type="file" class="hidden" accept="image/jpeg, image/png, image/jpg" x-on:change="fileName = $event.target.files.length ? $event.target.files[0].name : 'No file chosen'">
                             @error('image') <p class="mt-2 text-sm text-rose-500">{{ $message }}</p> @enderror
                         </div>
                     </div>

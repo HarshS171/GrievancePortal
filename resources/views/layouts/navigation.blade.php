@@ -1,6 +1,6 @@
 <nav x-data="{ mobileOpen: false }" class="relative z-10">
     <div class="lg:flex lg:min-h-screen">
-        <aside class="hidden lg:flex lg:w-80 lg:flex-col lg:justify-between" style="background:rgba(11,21,37,0.95); border-right:1px solid rgba(255,255,255,0.08); color:var(--text-primary, #e8f4ff);">
+        <aside class="hidden lg:fixed lg:top-0 lg:left-0 lg:flex lg:w-80 lg:flex-col lg:justify-between lg:h-screen lg:overflow-y-auto" style="background:rgba(11,21,37,0.95); border-right:1px solid rgba(255,255,255,0.08); color:var(--text-primary, #e8f4ff);">
             <div class="px-6 py-8">
                 <div class="flex items-center gap-3">
                     <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(59,130,246,0.25);border:1px solid rgba(59,130,246,0.4);">

@@ -97,9 +97,7 @@
                                     </td>
                                     <td style="padding:12px 16px;vertical-align:middle;color:rgba(255,255,255,0.6);font-weight:600">{{ $complaint->created_at->format('M d, Y') }}</td>
                                     <td style="padding:12px 16px;vertical-align:middle;text-align:right;">
-                                        <a href="{{ route('complaints.show', $complaint) }}" style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.03);color:#7dd3fc;opacity:0;transition:opacity .15s ease" class="group-hover:opacity-100">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                        </a>
+                                        <a href="{{ route('complaints.show', $complaint) }}" style="background:transparent;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.65);border-radius:6px;padding:5px 14px;font-size:12px;font-weight:600;display:inline-block;transition:all .15s ease" class="hover:border-sky-400 hover:text-sky-300">Manage</a>
                                     </td>
                                 </tr>
                             @empty
