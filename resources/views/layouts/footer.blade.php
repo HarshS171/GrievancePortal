@@ -1,5 +1,5 @@
-<footer class="mt-auto border-t border-slate-200/80 bg-white/80 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<footer class="mt-auto border-t border-slate-700/70 bg-slate-950/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-slate-300">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <x-portal-logo size="sm" :href="auth()->check() ? route('dashboard') : url('/')" />
             <div class="flex flex-wrap gap-6 text-sm font-medium text-slate-500">

@@ -9,26 +9,21 @@
                     <div class="flex items-center gap-3">
                         <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Complaint <span class="text-slate-400">#{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }}</span></h2>
                         @if($complaint->is_urgent)
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200/60">
-                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-                                URGENT
-                            </span>
+                            <span style="background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.06em;margin-left:8px;display:inline-flex;align-items:center;">URGENT</span>
                         @endif
                         @if($complaint->is_escalated)
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold bg-orange-50 text-orange-700 border border-orange-200/60">
-                                ESCALATED
-                            </span>
+                            <span style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.06em;margin-left:8px;">ESCALATED</span>
                         @endif
                         @if($complaint->status === 'Pending')
-                            <span class="badge badge-pending">Pending</span>
+                            <span class="status-pending" style="margin-left:8px">Pending</span>
                         @elseif($complaint->status === 'In Progress')
-                            <span class="badge badge-in-progress">In Progress</span>
+                            <span class="status-inprogress" style="margin-left:8px">In Progress</span>
                         @elseif($complaint->status === 'Resolved')
-                            <span class="badge badge-resolved">Resolved</span>
+                            <span class="status-resolved" style="margin-left:8px">Resolved</span>
                         @elseif($complaint->status === 'Rejected')
-                            <span class="badge badge-rejected">Rejected</span>
+                            <span style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.06em;margin-left:8px;">Rejected</span>
                         @else
-                            <span class="badge bg-slate-100 text-slate-800 border-slate-200">{{ $complaint->status }}</span>
+                            <span style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.06em;margin-left:8px;">{{ $complaint->status }}</span>
                         @endif
                     </div>
                     <p class="mt-2 text-sm text-slate-500 flex items-center gap-1.5 font-medium">
@@ -52,35 +47,28 @@
                 
                 <!-- Left Column: Details -->
                 <div class="lg:col-span-2 space-y-8">
-                    <div class="card bg-white p-0 overflow-hidden border-0 shadow-lg shadow-slate-200/50 ring-1 ring-slate-100">
-                        <div class="px-8 py-6 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-                            <h3 class="text-2xl font-bold text-slate-900 leading-tight flex-grow">{{ $complaint->title }}</h3>
-                            <div class="shrink-0">
-                                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold bg-portal-50 text-portal-700 border border-portal-100/60 shadow-sm shadow-portal-100/50">
-                                    <div class="w-5 h-5 rounded flex items-center justify-center bg-portal-100 text-portal-700">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
-                                    </div>
-                                    {{ $complaint->category->name ?? 'Uncategorized' }}
-                                </span>
+                    <div class="glass-card p-0">
+                        <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:8px;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                                <h3 style="font-size:20px;font-weight:600;color:#e8f4ff;margin:0;flex:1;">{{ $complaint->title }}</h3>
+                                <div style="flex-shrink:0">
+                                    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);color:#93c5fd">{{ $complaint->category->name ?? 'Uncategorized' }}</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-8">
-                            <div class="prose max-w-none text-slate-700 text-base leading-relaxed">
-                                <p class="whitespace-pre-line">{{ $complaint->description }}</p>
-                            </div>
+                        <div style="padding:18px;">
+                            <div style="color:rgba(255,255,255,0.65);line-height:1.6;font-size:14px"> <p class="whitespace-pre-line">{{ $complaint->description }}</p> </div>
                         </div>
                         @if($complaint->category && ($complaint->category->officer_name || $complaint->category->officer_phone))
-                        <div class="px-8 py-4 bg-portal-50/50 border-t border-portal-100 flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center">
-                            <span class="text-sm font-bold text-portal-900">Assigned Officer:</span>
+                        <div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:12px;align-items:center;color:rgba(255,255,255,0.85)">
+                            <div style="font-weight:600;margin-right:8px">Assigned Officer:</div>
                             @if($complaint->category->officer_name)
-                            <div class="flex items-center gap-2 text-sm font-medium text-portal-700">
-                                <svg class="w-4 h-4 text-portal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,0.8)">
                                 {{ $complaint->category->officer_name }}
                             </div>
                             @endif
                             @if($complaint->category->officer_phone)
-                            <div class="flex items-center gap-2 text-sm font-medium text-portal-700">
-                                <svg class="w-4 h-4 text-portal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,0.7)">
                                 {{ $complaint->category->officer_phone }}
                             </div>
                             @endif
@@ -90,62 +78,54 @@
 
                     <!-- Address and Details Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Location details -->
-                        <div class="card bg-white shadow-sm p-8 border-slate-200/60 hover:border-blue-200 transition-colors group">
-                            <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <div class="glass-card">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                                <div style="width:32px;height:32px;border-radius:8px;background:rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center;color:#93c5fd">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
                                 </div>
-                                <h4 class="text-lg font-bold text-slate-900 tracking-tight">Location Information</h4>
+                                <h4 style="font-size:16px;font-weight:600;color:#e8f4ff;margin:0">Location Information</h4>
                             </div>
-                            <dl class="space-y-4">
-                                <div class="flex justify-between items-center py-2 border-b border-slate-50">
-                                    <dt class="text-sm font-semibold text-slate-500">Block</dt>
-                                    <dd class="text-sm font-bold text-slate-900 bg-slate-50 px-2 py-1 rounded">{{ $complaint->block ?? 'N/A' }}</dd>
+                            <div style="display:flex;flex-direction:column;gap:10px">
+                                <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.06);padding:10px 0;">
+                                    <dt style="color:rgba(255,255,255,0.4)">Block</dt>
+                                    <dd style="font-weight:700;color:#e8f4ff">{{ $complaint->block ?? 'N/A' }}</dd>
                                 </div>
-                                <div class="flex justify-between items-center py-2 border-b border-slate-50">
-                                    <dt class="text-sm font-semibold text-slate-500">Floor</dt>
-                                    <dd class="text-sm font-bold text-slate-900 bg-slate-50 px-2 py-1 rounded">{{ $complaint->floor ?? 'N/A' }}</dd>
+                                <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.06);padding:10px 0;">
+                                    <dt style="color:rgba(255,255,255,0.4)">Floor</dt>
+                                    <dd style="font-weight:700;color:#e8f4ff">{{ $complaint->floor ?? 'N/A' }}</dd>
                                 </div>
-                                <div class="flex justify-between items-center py-2 border-b border-slate-50">
-                                    <dt class="text-sm font-semibold text-slate-500">Room Number</dt>
-                                    <dd class="text-sm font-bold text-slate-900 bg-slate-50 px-2 py-1 rounded">{{ $complaint->room_number ?? 'N/A' }}</dd>
+                                <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.06);padding:10px 0;">
+                                    <dt style="color:rgba(255,255,255,0.4)">Room Number</dt>
+                                    <dd style="font-weight:700;color:#e8f4ff">{{ $complaint->room_number ?? 'N/A' }}</dd>
                                 </div>
-                                <div class="flex flex-col pt-2">
-                                    <dt class="text-sm font-semibold text-slate-500 mb-1">Area / Landmark</dt>
-                                    <dd class="text-base font-bold text-slate-900">{{ $complaint->area_location ?? 'N/A' }}</dd>
+                                <div style="padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
+                                    <dt style="color:rgba(255,255,255,0.6);margin-bottom:6px">Area / Landmark</dt>
+                                    <dd style="font-size:14px;font-weight:700;color:#e8f4ff">{{ $complaint->area_location ?? 'N/A' }}</dd>
                                 </div>
-                            </dl>
+                            </div>
                         </div>
 
-                        <!-- Contact details -->
-                        <div class="card bg-white shadow-sm p-8 border-slate-200/60 hover:border-emerald-200 transition-colors group">
-                            <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        <div class="glass-card">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                                <div style="width:32px;height:32px;border-radius:8px;background:rgba(52,211,153,0.12);display:flex;align-items:center;justify-content:center;color:#34d399">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                                 </div>
-                                <h4 class="text-lg font-bold text-slate-900 tracking-tight">Contact Details</h4>
+                                <h4 style="font-size:16px;font-weight:600;color:#e8f4ff;margin:0">Contact Details</h4>
                             </div>
-                            <dl class="space-y-4">
-                                <div class="flex justify-between items-center py-2 border-b border-slate-50">
-                                    <dt class="text-sm font-semibold text-slate-500">Contact No</dt>
-                                    <dd class="text-sm font-bold text-slate-900">{{ $complaint->contact_number ?? 'N/A' }}</dd>
+                            <div style="display:flex;flex-direction:column;gap:10px">
+                                <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.06);padding:10px 0;">
+                                    <dt style="color:rgba(255,255,255,0.4)">Contact No</dt>
+                                    <dd style="font-weight:700;color:#e8f4ff">{{ $complaint->contact_number ?? 'N/A' }}</dd>
                                 </div>
-                                <div class="flex justify-between items-center py-2 border-b border-slate-50">
-                                    <dt class="text-sm font-semibold text-slate-500">Availability Date</dt>
-                                    <dd class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                                        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                        {{ $complaint->availability_date ? \Carbon\Carbon::parse($complaint->availability_date)->format('M d, Y') : 'N/A' }}
-                                    </dd>
+                                <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.06);padding:10px 0;">
+                                    <dt style="color:rgba(255,255,255,0.4)">Availability Date</dt>
+                                    <dd style="font-weight:700;color:#e8f4ff">{{ $complaint->availability_date ? \Carbon\Carbon::parse($complaint->availability_date)->format('M d, Y') : 'N/A' }}</dd>
                                 </div>
-                                <div class="flex justify-between items-center py-2">
-                                    <dt class="text-sm font-semibold text-slate-500">Preferred Time</dt>
-                                    <dd class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                                        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                        {{ $complaint->preferred_time_slot ?? 'N/A' }}
-                                    </dd>
+                                <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.06);padding:10px 0;">
+                                    <dt style="color:rgba(255,255,255,0.4)">Preferred Time</dt>
+                                    <dd style="font-weight:700;color:#e8f4ff">{{ $complaint->preferred_time_slot ?? 'N/A' }}</dd>
                                 </div>
-                            </dl>
+                            </div>
                         </div>
                     </div>
 
@@ -211,53 +191,46 @@
 
                 <!-- Right Column: Admin Actions -->
                 <div class="space-y-6">
-                    <!-- Update Status Card -->
-                    <div class="card bg-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 border-0 ring-1 ring-slate-100 sticky top-6">
-                        <h3 class="text-xl font-bold text-slate-900 mb-6 pb-4 border-b border-slate-100">Update Status</h3>
-                        <form action="{{ route('admin.complaints.update', $complaint) }}" method="POST" class="space-y-6">
-                            @csrf
-                            @method('PUT')
-                            
-                            <div class="group">
-                                <label for="status" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-portal-700 transition-colors">Current Status</label>
-                                <select name="status" id="status" class="form-select w-full bg-slate-50 group-hover:bg-white transition-colors">
-                                    <option value="Pending" {{ $complaint->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="In Progress" {{ $complaint->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
-                                    <option value="Resolved" {{ $complaint->status == 'Resolved' ? 'selected' : '' }}>Resolved</option>
-                                    <option value="Rejected" {{ $complaint->status == 'Rejected' ? 'selected' : '' }}>Rejected</option>
-                                </select>
-                            </div>
-
-                            <div class="group">
-                                <label for="admin_remark" class="block text-sm font-semibold text-slate-700 mb-1.5 group-focus-within:text-portal-700 transition-colors">Admin Remark (Optional)</label>
-                                <textarea name="admin_remark" id="admin_remark" rows="5" class="form-textarea w-full bg-slate-50 group-hover:bg-white transition-colors @error('admin_remark') border-rose-300 ring-rose-200 @enderror" placeholder="Enter resolution details or remarks sent to citizen...">{{ $complaint->admin_remark }}</textarea>
-                                @error('admin_remark')
-                                    <p class="mt-1.5 text-sm font-medium text-rose-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <button type="submit" class="btn btn-primary w-full py-3 shadow-lg shadow-portal-200 text-base">
-                                Save Changes
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Delete Card -->
-                    <div class="card bg-rose-50/30 border border-rose-100 shadow-sm p-6 sm:p-8">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                            </div>
-                            <h3 class="text-lg font-bold text-rose-700">Danger Zone</h3>
+                    <div>
+                        <div class="glass-card" style="position:sticky;top:24px;">
+                            <h3 style="font-size:16px;font-weight:600;color:#e8f4ff;margin:0 0 12px 0;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Update Status</h3>
+                            <form action="{{ route('admin.complaints.update', $complaint) }}" method="POST" class="space-y-6">
+                                @csrf
+                                @method('PUT')
+                                <div>
+                                    <label for="status" style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.75);margin-bottom:6px">Current Status</label>
+                                    <select name="status" id="status" class="form-input">
+                                        <option value="Pending" {{ $complaint->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="In Progress" {{ $complaint->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                                        <option value="Resolved" {{ $complaint->status == 'Resolved' ? 'selected' : '' }}>Resolved</option>
+                                        <option value="Rejected" {{ $complaint->status == 'Rejected' ? 'selected' : '' }}>Rejected</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="admin_remark" style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.75);margin-bottom:6px">Admin Remark (Optional)</label>
+                                    <textarea name="admin_remark" id="admin_remark" rows="5" class="form-input @error('admin_remark') border-rose-300 ring-rose-200 @enderror" placeholder="Enter resolution details or remarks sent to citizen...">{{ $complaint->admin_remark }}</textarea>
+                                    @error('admin_remark')
+                                        <p class="mt-1.5 text-sm font-medium text-rose-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <button type="submit" class="btn-primary w-full py-3">Save Changes</button>
+                            </form>
                         </div>
-                        <p class="text-sm font-medium text-rose-600/80 mb-6 leading-relaxed">Permanently delete this complaint from the system. This action cannot be undone and will remove all associated data.</p>
-                        <form action="{{ route('admin.complaints.destroy', $complaint) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this complaint? This action cannot be undone.');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger w-full bg-white text-rose-600 border-rose-200 hover:bg-rose-600 hover:text-white hover:border-rose-600 shadow-sm hover:shadow-rose-200">
-                                Delete Complaint
-                            </button>
-                        </form>
+
+                        <div class="glass-card" style="margin-top:12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.25);">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                                <div style="width:36px;height:36px;border-radius:50%;background:rgba(239,68,68,0.12);display:flex;align-items:center;justify-content:center;color:#f87171">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <h3 style="font-size:14px;font-weight:600;color:#f87171;margin:0">Danger Zone</h3>
+                            </div>
+                            <p style="color:rgba(248,113,113,0.9);margin-bottom:12px">Permanently delete this complaint from the system. This action cannot be undone and will remove all associated data.</p>
+                            <form action="{{ route('admin.complaints.destroy', $complaint) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this complaint? This action cannot be undone.');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="width:100%;padding:10px;border-radius:8px;background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25);font-weight:600">Delete Complaint</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
 

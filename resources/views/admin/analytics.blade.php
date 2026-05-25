@@ -22,50 +22,50 @@
 
             {{-- KPI Summary Cards --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100 hover:ring-portal-100 hover:-translate-y-1 transition-all group">
-                    <div class="flex items-center justify-between mb-4">
-                        <p class="text-xs font-extrabold text-slate-500 uppercase tracking-wider group-hover:text-portal-700 transition-colors">Total</p>
-                        <div class="w-10 h-10 rounded-xl bg-portal-50 text-portal-700 flex items-center justify-center">
+                <div class="glass-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);font-weight:600">Total</div>
+                        <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.25)">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         </div>
                     </div>
-                    <p class="text-4xl font-black text-slate-900 tracking-tight">{{ $total }}</p>
-                    <p class="mt-2 text-sm font-medium text-slate-500">All time submissions</p>
+                    <div style="font-size:32px;font-weight:700;color:#e8f4ff">{{ $total }}</div>
+                    <div style="margin-top:6px;font-size:12px;color:rgba(255,255,255,0.4)">All time submissions</div>
                 </div>
-                <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100 hover:ring-emerald-100 hover:-translate-y-1 transition-all group">
+                <div class="glass-card">
                     <div class="flex items-center justify-between mb-4">
-                        <p class="text-xs font-extrabold text-slate-500 uppercase tracking-wider group-hover:text-emerald-600 transition-colors">Resolution</p>
-                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);font-weight:600">Resolution</p>
+                        <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.25)">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                     </div>
-                    <p class="text-4xl font-black text-emerald-600 tracking-tight">{{ $resolutionRate }}%</p>
-                    <p class="mt-2 text-sm font-medium text-slate-500">Resolved out of total</p>
+                    <div style="font-size:32px;font-weight:700;color:#34d399">{{ $resolutionRate }}%</div>
+                    <div style="margin-top:6px;font-size:12px;color:rgba(255,255,255,0.4)">Resolved out of total</div>
                 </div>
-                <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100 hover:ring-blue-100 hover:-translate-y-1 transition-all group">
+                <div class="glass-card">
                     <div class="flex items-center justify-between mb-4">
-                        <p class="text-xs font-extrabold text-slate-500 uppercase tracking-wider group-hover:text-blue-600 transition-colors">Avg Time</p>
-                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);font-weight:600">Avg Time</p>
+                        <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.25)">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                     </div>
-                    <p class="text-4xl font-black text-blue-600 tracking-tight">{{ $avgResolutionTime }}<span class="text-xl font-bold text-blue-400 ml-1">days</span></p>
-                    <p class="mt-2 text-sm font-medium text-slate-500">From submission to resolved</p>
+                    <div style="font-size:32px;font-weight:700;color:#3b82f6">{{ $avgResolutionTime }}<span style="font-size:18px;font-weight:600;color:#60a5fa;margin-left:8px;">days</span></div>
+                    <div style="margin-top:6px;font-size:12px;color:rgba(255,255,255,0.4)">From submission to resolved</div>
                 </div>
-                <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100 hover:ring-amber-100 hover:-translate-y-1 transition-all group">
+                <div class="glass-card">
                     <div class="flex items-center justify-between mb-4">
-                        <p class="text-xs font-extrabold text-slate-500 uppercase tracking-wider group-hover:text-amber-600 transition-colors">Top Category</p>
-                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);font-weight:600">Top Category</p>
+                        <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.25)">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
                         </div>
                     </div>
-                    <p class="text-2xl font-black text-amber-600 tracking-tight leading-tight truncate">{{ $mostCommonCategory['name'] ?? 'N/A' }}</p>
-                    <p class="mt-2 text-sm font-medium text-slate-500">{{ $mostCommonCategory['count'] ?? 0 }} complaints filed</p>
+                    <div style="font-size:20px;font-weight:600;color:#fbbf24;">{{ $mostCommonCategory['name'] ?? 'N/A' }}</div>
+                    <div style="margin-top:6px;font-size:12px;color:rgba(255,255,255,0.4)">{{ $mostCommonCategory['count'] ?? 0 }} complaints filed</div>
                 </div>
             </div>
 
             {{-- Line Chart: Complaints over last 30 days --}}
-            <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100">
+            <div class="glass-card">
                 <div class="mb-8">
                     <h3 class="text-xl font-extrabold text-slate-900 tracking-tight">Complaints Over Last 30 Days</h3>
                     <p class="mt-1 text-sm font-medium text-slate-500">Daily submission trend and volume</p>
@@ -79,7 +79,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
                 {{-- Bar Chart: Complaints per Category --}}
-                <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100">
+                <div class="glass-card">
                     <div class="mb-8">
                         <h3 class="text-xl font-extrabold text-slate-900 tracking-tight">Complaints by Category</h3>
                         <p class="mt-1 text-sm font-medium text-slate-500">Most common complaint types across the system</p>
@@ -90,7 +90,7 @@
                 </div>
 
                 {{-- Pie Chart: Status Distribution --}}
-                <div class="card bg-white p-6 sm:p-8 shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100">
+                <div class="glass-card">
                     <div class="mb-8">
                         <h3 class="text-xl font-extrabold text-slate-900 tracking-tight">Status Distribution</h3>
                         <p class="mt-1 text-sm font-medium text-slate-500">Breakdown of current complaint statuses</p>
@@ -102,47 +102,41 @@
             </div>
 
             {{-- Status breakdown table --}}
-            <div class="card bg-white p-0 overflow-hidden shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100">
-                <div class="px-8 py-6 border-b border-slate-100 bg-slate-50/50">
-                    <h3 class="text-xl font-extrabold text-slate-900 tracking-tight">Status Breakdown</h3>
+            <div class="glass-card p-0">
+                <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08)">
+                    <h3 style="font-size:16px;font-weight:600;color:#e8f4ff;margin:0">Status Breakdown</h3>
                 </div>
-                <table class="min-w-full divide-y divide-slate-200">
-                    <thead class="bg-slate-50/80">
+                <table style="width:100%;border-collapse:collapse;">
+                    <thead style="background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1);">
                         <tr>
-                            <th class="px-8 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                            <th class="px-8 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Count</th>
-                            <th class="px-8 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Percentage</th>
-                            <th class="px-8 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Progress</th>
+                            <th style="padding:12px 16px;text-align:left;font-size:11px;text-transform:uppercase;color:rgba(255,255,255,0.4)">Status</th>
+                            <th style="padding:12px 16px;text-align:left;font-size:11px;text-transform:uppercase;color:rgba(255,255,255,0.4)">Count</th>
+                            <th style="padding:12px 16px;text-align:left;font-size:11px;text-transform:uppercase;color:rgba(255,255,255,0.4)">Percentage</th>
+                            <th style="padding:12px 16px;text-align:left;font-size:11px;text-transform:uppercase;color:rgba(255,255,255,0.4)">Progress</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-slate-100">
+                    <tbody>
                         @foreach($statusCounts as $status => $count)
                         @php
                             $pct = $total > 0 ? round(($count / $total) * 100, 1) : 0;
-                            $color = match($status) {
-                                'Resolved' => 'bg-emerald-500 shadow-emerald-200',
-                                'In Progress' => 'bg-blue-500 shadow-blue-200',
-                                'Pending' => 'bg-amber-400 shadow-amber-200',
-                                default => 'bg-slate-400 shadow-slate-200'
-                            };
                         @endphp
-                        <tr class="hover:bg-slate-50/60 transition-colors">
-                            <td class="px-8 py-5">
+                        <tr style="border-top:1px solid rgba(255,255,255,0.06)">
+                            <td style="padding:12px 16px;">
                                 @if($status === 'Resolved')
-                                    <span class="badge badge-resolved">{{ $status }}</span>
+                                    <span class="status-resolved">{{ $status }}</span>
                                 @elseif($status === 'In Progress')
-                                    <span class="badge badge-in-progress">{{ $status }}</span>
+                                    <span class="status-inprogress">{{ $status }}</span>
                                 @elseif($status === 'Pending')
-                                    <span class="badge badge-pending">{{ $status }}</span>
+                                    <span class="status-pending">{{ $status }}</span>
                                 @else
-                                    <span class="badge bg-slate-100 text-slate-800 border-slate-200">{{ $status }}</span>
+                                    <span style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600">{{ $status }}</span>
                                 @endif
                             </td>
-                            <td class="px-8 py-5 text-sm font-extrabold text-slate-900">{{ $count }}</td>
-                            <td class="px-8 py-5 text-sm font-bold text-slate-500">{{ $pct }}%</td>
-                            <td class="px-8 py-5 w-64">
-                                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden border border-slate-200/60">
-                                    <div class="{{ $color }} h-2.5 rounded-full shadow-lg transition-all duration-1000 ease-out" style="width: {{ $pct }}%"></div>
+                            <td style="padding:12px 16px;font-size:14px;font-weight:700;color:#e8f4ff">{{ $count }}</td>
+                            <td style="padding:12px 16px;font-size:13px;color:rgba(255,255,255,0.4)">{{ $pct }}%</td>
+                            <td style="padding:12px 16px;width:320px;">
+                                <div style="width:100%;background:rgba(255,255,255,0.06);border-radius:999px;height:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.06)">
+                                    <div style="height:10px;border-radius:999px;background:{{ $status === 'Resolved' ? '#34d399' : ($status === 'In Progress' ? '#6366f1' : ($status === 'Pending' ? '#fbbf24' : '#94a3b8')) }};width:{{ $pct }}%"></div>
                                 </div>
                             </td>
                         </tr>
@@ -161,9 +155,26 @@
             '#0ea5e9','#ef4444','#14b8a6','#64748b','#059669'
         ];
 
-        Chart.defaults.font.family = "'Inter', sans-serif";
-        Chart.defaults.color = '#64748b';
-        Chart.defaults.scale.grid.color = '#f1f5f9';
+        Chart.defaults.font.family = "'Outfit', sans-serif";
+        Chart.defaults.color = 'rgba(255,255,255,0.6)';
+        Chart.defaults.plugins.legend.labels.color = 'rgba(255,255,255,0.6)';
+        Chart.defaults.scales = Chart.defaults.scales || {};
+        Chart.defaults.scales.x = Chart.defaults.scales.x || {};
+        Chart.defaults.scales.y = Chart.defaults.scales.y || {};
+        Chart.defaults.scales.x.ticks = Chart.defaults.scales.x.ticks || {};
+        Chart.defaults.scales.y.ticks = Chart.defaults.scales.y.ticks || {};
+        Chart.defaults.scales.x.ticks.color = 'rgba(255,255,255,0.35)';
+        Chart.defaults.scales.y.ticks.color = 'rgba(255,255,255,0.35)';
+        Chart.defaults.scales.x.grid = Chart.defaults.scales.x.grid || {};
+        Chart.defaults.scales.y.grid = Chart.defaults.scales.y.grid || {};
+        Chart.defaults.scales.x.grid.color = 'rgba(255,255,255,0.05)';
+        Chart.defaults.scales.y.grid.color = 'rgba(255,255,255,0.05)';
+        Chart.defaults.datasets = Chart.defaults.datasets || {};
+        Chart.defaults.datasets.line = Chart.defaults.datasets.line || {};
+        Chart.defaults.datasets.line.borderColor = '#3b82f6';
+        Chart.defaults.datasets.line.backgroundColor = 'rgba(59,130,246,0.1)';
+        Chart.defaults.datasets.bar = Chart.defaults.datasets.bar || {};
+        Chart.defaults.datasets.bar.backgroundColor = '#3b82f6';
 
         // --- Line Chart ---
         new Chart(document.getElementById('lineChart'), {

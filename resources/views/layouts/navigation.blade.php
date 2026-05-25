@@ -1,95 +1,104 @@
-<nav x-data="{ mobileOpen: false }" class="glass-header">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 lg:h-[4.25rem]">
-            <div class="flex items-center gap-8">
-                <x-portal-logo size="md" :href="route('dashboard')" />
+<nav x-data="{ mobileOpen: false }" class="relative z-10">
+    <div class="lg:flex lg:min-h-screen">
+        <aside class="hidden lg:flex lg:w-80 lg:flex-col lg:justify-between" style="background:rgba(11,21,37,0.95); border-right:1px solid rgba(255,255,255,0.08); color:var(--text-primary, #e8f4ff);">
+            <div class="px-6 py-8">
+                <div class="flex items-center gap-3">
+                    <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(59,130,246,0.25);border:1px solid rgba(59,130,246,0.4);">
+                        <x-portal-logo size="sm" :show-text="false" :href="route('dashboard')" class="text-white" />
+                    </div>
+                    <div>
+                        <p style="font-size:16px;font-weight:700;color:#e8f4ff;line-height:1;">GrievancePortal</p>
+                        <span style="font-size:10px;letter-spacing:0.12em;display:block;color:rgba(255,255,255,0.4);">CITIZEN REDRESSAL</span>
+                    </div>
+                </div>
 
-                <div class="hidden lg:flex items-center gap-1">
-                    @php
-                        $navLink = fn($active) => $active
-                            ? 'inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold text-portal-900 bg-portal-50 border border-portal-100 transition-all'
-                            : 'inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-portal-900 hover:bg-slate-50 border border-transparent transition-all';
-                    @endphp
+                @php
+                    $navLink = fn($active) => $active
+                        ? 'block rounded-2xl px-4 py-3 text-sm font-semibold text-sky-200 bg-sky-500/10 border border-sky-500/20 transition-all'
+                        : 'block rounded-2xl px-4 py-3 text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all';
+                @endphp
 
-                    <a href="{{ route('dashboard') }}" class="{{ $navLink(request()->routeIs('dashboard') || request()->routeIs('admin.dashboard')) }}">
-                        <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                <div class="mt-10 space-y-2">
+                    <a href="{{ route('dashboard') }}" class="block text-sm rounded-2xl" style="display:block;color:rgba(255,255,255,0.55);font-size:14px;padding:6px 14px;border-radius:8px;{{ request()->routeIs('dashboard') || request()->routeIs('admin.dashboard') ? 'background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;' : '' }} transition:all;">
                         Dashboard
                     </a>
-
                     @if(auth()->user()->role === 'user')
-                        <a href="{{ route('complaints.index') }}" class="{{ $navLink(request()->routeIs('complaints.*') && !request()->routeIs('complaints.create')) }}">
-                            <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                            My Complaints
-                        </a>
-                        <a href="{{ route('complaints.create') }}" class="{{ $navLink(request()->routeIs('complaints.create')) }}">
-                            <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                            File Grievance
-                        </a>
+                        <a href="{{ route('complaints.index') }}" class="block text-sm rounded-2xl" style="display:block;color:rgba(255,255,255,0.55);font-size:14px;padding:6px 14px;border-radius:8px;{{ request()->routeIs('complaints.*') && !request()->routeIs('complaints.create') ? 'background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;' : '' }} transition:all;">My Complaints</a>
+                        <a href="{{ route('complaints.create') }}" class="block text-sm rounded-2xl" style="display:block;color:rgba(255,255,255,0.55);font-size:14px;padding:6px 14px;border-radius:8px;{{ request()->routeIs('complaints.create') ? 'background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;' : '' }} transition:all;">File Grievance</a>
                     @endif
-
                     @if(auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.complaints') }}" class="{{ $navLink(request()->routeIs('admin.complaints*')) }}">
-                            Manage
-                        </a>
-                        <a href="{{ route('admin.categories.index') }}" class="{{ $navLink(request()->routeIs('admin.categories*')) }}">
-                            Categories
-                        </a>
-                        <a href="{{ route('admin.analytics') }}" class="{{ $navLink(request()->routeIs('admin.analytics')) }}">
-                            Analytics
-                        </a>
+                        <a href="{{ route('admin.complaints') }}" class="block text-sm rounded-2xl" style="display:block;color:rgba(255,255,255,0.55);font-size:14px;padding:6px 14px;border-radius:8px;{{ request()->routeIs('admin.complaints*') ? 'background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;' : '' }} transition:all;">Manage</a>
+                        <a href="{{ route('admin.categories.index') }}" class="block text-sm rounded-2xl" style="display:block;color:rgba(255,255,255,0.55);font-size:14px;padding:6px 14px;border-radius:8px;{{ request()->routeIs('admin.categories*') ? 'background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;' : '' }} transition:all;">Categories</a>
+                        <a href="{{ route('admin.analytics') }}" class="block text-sm rounded-2xl" style="display:block;color:rgba(255,255,255,0.55);font-size:14px;padding:6px 14px;border-radius:8px;{{ request()->routeIs('admin.analytics') ? 'background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;' : '' }} transition:all;">Analytics</a>
                     @endif
                 </div>
             </div>
 
-            <div class="hidden lg:flex items-center gap-3">
-                @if(auth()->user()->role === 'admin')
-                    <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wider bg-portal-900 text-white">Admin</span>
-                @endif
-                <a href="{{ route('profile.edit') }}" class="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-portal-700 to-portal-900 text-white font-bold flex items-center justify-center text-sm shadow-md shadow-portal-900/20">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+            <div style="border-top:1px solid rgba(255,255,255,0.08); padding:18px;">
+                <div style="display:flex;align-items:center;gap:12px;padding:8px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);">
+                    <div style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(59,130,246,0.25);color:#93c5fd;font-weight:600;">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                    <div style="flex:1;min-width:0;">
+                        <p style="font-size:13px;font-weight:600;color:#e8f4ff;margin:0;">{{ Auth::user()->name }}</p>
+                        <p style="font-size:10px;color:rgba(255,255,255,0.4);margin:0;display:inline-flex;align-items:center;gap:8px;">@if(auth()->user()->role === 'admin')<span style="background:#1d4ed8;color:#fff;font-size:10px;letter-spacing:0.1em;padding:3px 10px;border-radius:4px;font-weight:600;">ADMIN</span>@else <span style="font-size:10px;color:rgba(255,255,255,0.45);">{{ ucwords(auth()->user()->role) }}</span>@endif</p>
                     </div>
-                    <span class="text-sm font-semibold text-slate-700 max-w-[120px] truncate">{{ Auth::user()->name }}</span>
-                </a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-ghost text-sm py-2 px-3">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                        Log out
+                </div>
+                <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;">
+                    <a href="{{ route('profile.edit') }}" style="display:block;padding:10px;border-radius:8px;background:transparent;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.04);">View profile</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" style="width:100%;padding:10px;border-radius:8px;background:transparent;color:rgba(255,255,255,0.85);border:1px solid rgba(239,68,68,0.25);">Log out</button>
+                    </form>
+                </div>
+            </div>
+        </aside>
+
+        <div class="lg:hidden bg-slate-950/95 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-700/20 border border-sky-500/30 text-sky-200">
+                        <x-portal-logo size="sm" :show-text="false" :href="route('dashboard')" class="text-white" />
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-100">GrievancePortal</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-11 h-11 rounded-2xl border border-white/10 bg-slate-900 text-slate-100 shadow-sm hover:border-sky-300 transition-all" aria-label="Toggle theme">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2"/><path d="M12 19v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/><circle cx="12" cy="12" r="5"/></svg>
                     </button>
-                </form>
+                    <button type="button" @click="mobileOpen = !mobileOpen" class="inline-flex items-center justify-center w-11 h-11 rounded-2xl border border-white/10 bg-slate-900 text-slate-100 shadow-sm hover:border-sky-300 transition-all" aria-label="Toggle menu">
+                        <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg x-show="mobileOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
             </div>
 
-            <div class="flex items-center lg:hidden">
-                <button type="button" @click="mobileOpen = !mobileOpen" class="inline-flex items-center justify-center w-10 h-10 rounded-xl text-slate-600 hover:bg-slate-100 border border-slate-200 transition-colors" aria-label="Toggle menu">
-                    <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    <svg x-show="mobileOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl">
-        <div class="px-4 py-4 space-y-1">
-            <a href="{{ route('dashboard') }}" class="block px-4 py-3 rounded-xl text-sm font-semibold {{ request()->routeIs('dashboard') || request()->routeIs('admin.dashboard') ? 'bg-portal-50 text-portal-900' : 'text-slate-700 hover:bg-slate-50' }}">Dashboard</a>
-            @if(auth()->user()->role === 'user')
-                <a href="{{ route('complaints.index') }}" class="block px-4 py-3 rounded-xl text-sm font-semibold {{ request()->routeIs('complaints.index') || request()->routeIs('complaints.show') ? 'bg-portal-50 text-portal-900' : 'text-slate-700 hover:bg-slate-50' }}">My Complaints</a>
-                <a href="{{ route('complaints.create') }}" class="block px-4 py-3 rounded-xl text-sm font-semibold {{ request()->routeIs('complaints.create') ? 'bg-portal-50 text-portal-900' : 'text-slate-700 hover:bg-slate-50' }}">File Grievance</a>
-            @endif
-            @if(auth()->user()->role === 'admin')
-                <a href="{{ route('admin.complaints') }}" class="block px-4 py-3 rounded-xl text-sm font-semibold {{ request()->routeIs('admin.complaints*') ? 'bg-portal-50 text-portal-900' : 'text-slate-700 hover:bg-slate-50' }}">Manage Complaints</a>
-                <a href="{{ route('admin.categories.index') }}" class="block px-4 py-3 rounded-xl text-sm font-semibold {{ request()->routeIs('admin.categories*') ? 'bg-portal-50 text-portal-900' : 'text-slate-700 hover:bg-slate-50' }}">Categories</a>
-                <a href="{{ route('admin.analytics') }}" class="block px-4 py-3 rounded-xl text-sm font-semibold {{ request()->routeIs('admin.analytics') ? 'bg-portal-50 text-portal-900' : 'text-slate-700 hover:bg-slate-50' }}">Analytics</a>
-            @endif
-            <div class="pt-4 mt-4 border-t border-slate-100 space-y-2">
-                <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50">
-                    <div class="w-9 h-9 rounded-xl bg-portal-900 text-white font-bold flex items-center justify-center text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
-                    <span class="text-sm font-semibold text-slate-800">{{ Auth::user()->name }}</span>
-                </a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold text-rose-600 hover:bg-rose-50">Log out</button>
-                </form>
+            <div x-show="mobileOpen" x-cloak x-transition class="border-t border-white/10 bg-slate-950/95 backdrop-blur-xl shadow-sm">
+                <div class="px-4 py-5 space-y-2">
+                    <a href="{{ route('dashboard') }}" class="block rounded-2xl px-4 py-3 text-sm font-semibold {{ request()->routeIs('dashboard') || request()->routeIs('admin.dashboard') ? 'bg-sky-500/10 text-sky-200' : 'text-slate-300 hover:text-white hover:bg-white/5' }}">Dashboard</a>
+                    @if(auth()->user()->role === 'user')
+                        <a href="{{ route('complaints.index') }}" class="block rounded-2xl px-4 py-3 text-sm font-semibold {{ request()->routeIs('complaints.*') && !request()->routeIs('complaints.create') ? 'bg-sky-500/10 text-sky-200' : 'text-slate-300 hover:text-white hover:bg-white/5' }}">My Complaints</a>
+                        <a href="{{ route('complaints.create') }}" class="block rounded-2xl px-4 py-3 text-sm font-semibold {{ request()->routeIs('complaints.create') ? 'bg-sky-500/10 text-sky-200' : 'text-slate-300 hover:text-white hover:bg-white/5' }}">File Grievance</a>
+                    @endif
+                    @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.complaints') }}" class="block rounded-2xl px-4 py-3 text-sm font-semibold {{ request()->routeIs('admin.complaints*') ? 'bg-sky-500/10 text-sky-200' : 'text-slate-300 hover:text-white hover:bg-white/5' }}">Manage</a>
+                        <a href="{{ route('admin.categories.index') }}" class="block rounded-2xl px-4 py-3 text-sm font-semibold {{ request()->routeIs('admin.categories*') ? 'bg-sky-500/10 text-sky-200' : 'text-slate-300 hover:text-white hover:bg-white/5' }}">Categories</a>
+                        <a href="{{ route('admin.analytics') }}" class="block rounded-2xl px-4 py-3 text-sm font-semibold {{ request()->routeIs('admin.analytics') ? 'bg-sky-500/10 text-sky-200' : 'text-slate-300 hover:text-white hover:bg-white/5' }}">Analytics</a>
+                    @endif
+                    <div class="pt-4 mt-4 border-t border-white/10">
+                        <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-white/5 text-slate-300">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-sky-700/20 text-sky-200 font-semibold">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-100">{{ Auth::user()->name }}</p>
+                                <p class="text-xs text-slate-400">View profile</p>
+                            </div>
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full rounded-2xl px-4 py-3 text-left text-sm font-semibold text-rose-400 hover:bg-rose-500/10">Log out</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -22,8 +22,8 @@
     </div>
     @if($showText)
         <div class="flex flex-col">
-            <span class="{{ $s['text'] }} font-extrabold text-slate-900 tracking-tight leading-none">GrievancePortal</span>
-            <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mt-0.5 hidden sm:block">Citizen Redressal</span>
+            <span class="{{ $s['text'] }} font-extrabold text-current tracking-tight leading-none">GrievancePortal</span>
+            <span class="text-[10px] font-semibold text-current opacity-70 uppercase tracking-widest mt-0.5 hidden sm:block">Citizen Redressal</span>
         </div>
     @endif
 @if($href)
