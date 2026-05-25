@@ -8,18 +8,65 @@
 
     <div class="py-8">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8 animate-slide-up">
-            <div class="glass-card" x-data="{ step: {{ old('form_step', 1) }}, fileName: 'No file chosen' }" style="max-width:680px;margin:0 auto;">
+            <div class="glass-card" x-data="{
+                step: {{ old('form_step', 1) }},
+                fileName: 'No file chosen',
+                validateStep(s) {
+                    let stepEl = document.querySelector('[data-step=\'' + s + '\']');
+                    if (!stepEl) return true;
+                    let inputs = stepEl.querySelectorAll('input, select, textarea');
+                    for (let i = 0; i < inputs.length; i++) {
+                        if (!inputs[i].checkValidity()) {
+                            inputs[i].reportValidity();
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                validateAllSteps(nextTick) {
+                    for (let s = 1; s <= 3; s++) {
+                        let stepEl = document.querySelector('[data-step=\'' + s + '\']');
+                        if (!stepEl) continue;
+                        let inputs = stepEl.querySelectorAll('input, select, textarea');
+                        for (let i = 0; i < inputs.length; i++) {
+                            if (!inputs[i].checkValidity()) {
+                                this.step = s;
+                                nextTick(() => {
+                                    inputs[i].reportValidity();
+                                });
+                                return false;
+                            }
+                        }
+                    }
+                    return true;
+                },
+                canNavigateTo(target) {
+                    if (target <= this.step) {
+                        this.step = target;
+                        return;
+                    }
+                    if (target === this.step + 1) {
+                        if (this.validateStep(this.step)) {
+                            this.step = target;
+                        }
+                    } else if (target > this.step + 1) {
+                        if (this.validateStep(this.step)) {
+                            this.step = this.step + 1;
+                        }
+                    }
+                }
+            }" style="max-width:680px;margin:0 auto;">
                 <div class="mb-8 grid grid-cols-3 gap-4 text-sm uppercase tracking-[0.24em] text-slate-500">
-                    <button type="button" class="rounded-2xl px-4 py-3 transition-all duration-200" :class="step === 1 ? 'bg-portal-50 text-portal-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200'" @click="step = 1">Overview</button>
-                    <button type="button" class="rounded-2xl px-4 py-3 transition-all duration-200" :class="step === 2 ? 'bg-portal-50 text-portal-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200'" @click="step = 2">Location</button>
-                    <button type="button" class="rounded-2xl px-4 py-3 transition-all duration-200" :class="step === 3 ? 'bg-portal-50 text-portal-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200'" @click="step = 3">Contact</button>
+                    <button type="button" class="rounded-2xl px-4 py-3 transition-all duration-200" :class="step === 1 ? 'bg-portal-50 text-portal-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200'" @click="canNavigateTo(1)">Overview</button>
+                    <button type="button" class="rounded-2xl px-4 py-3 transition-all duration-200" :class="step === 2 ? 'bg-portal-50 text-portal-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200'" @click="canNavigateTo(2)">Location</button>
+                    <button type="button" class="rounded-2xl px-4 py-3 transition-all duration-200" :class="step === 3 ? 'bg-portal-50 text-portal-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200'" @click="canNavigateTo(3)">Contact</button>
                 </div>
 
-                <form action="{{ route('complaints.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+                <form action="{{ route('complaints.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8" @submit="if (!validateAllSteps($nextTick)) $event.preventDefault()">
                     @csrf
                     <input type="hidden" name="form_step" x-bind:value="step">
 
-                    <div x-show="step === 1" x-cloak class="space-y-6">
+                    <div data-step="1" x-show="step === 1" x-cloak class="space-y-6">
                             <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);">
                                 <div style="width:32px;height:32px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.25);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#93c5fd"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/></svg></div>
                                 <div>
@@ -31,14 +78,14 @@
                         <div class="space-y-6">
                             <div class="group">
                                 <label for="title" class="form-label">Complaint title</label>
-                                <input type="text" name="title" id="title" class="form-input @error('title') border-rose-300 ring-rose-200 @enderror" value="{{ old('title') }}" required placeholder="Brief summary of your grievance">
+                                <input type="text" name="title" id="title" minlength="5" class="form-input @error('title') border-rose-300 ring-rose-200 @enderror" value="{{ old('title') }}" required placeholder="Brief summary of your grievance (minimum 5 characters)">
                                 @error('title') <p class="mt-2 text-sm text-rose-500">{{ $message }}</p> @enderror
                             </div>
 
                             <div class="group">
                                 <label for="category_id" class="form-label">Category</label>
                                 <select name="category_id" id="category_id" class="form-input @error('category_id') border-rose-300 ring-rose-200 @enderror" required style="padding:10px 14px;">
-                                    <option value="" disabled>Select a category</option>
+                                    <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Select a category</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                     @endforeach
@@ -48,7 +95,7 @@
 
                             <div class="group">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea name="description" id="description" rows="6" class="form-textarea @error('description') border-rose-300 ring-rose-200 @enderror" required placeholder="Describe the issue in detail...">{{ old('description') }}</textarea>
+                                <textarea name="description" id="description" rows="6" minlength="10" class="form-textarea @error('description') border-rose-300 ring-rose-200 @enderror" required placeholder="Describe the issue in detail (minimum 10 characters)...">{{ old('description') }}</textarea>
                                 @error('description') <p class="mt-2 text-sm text-rose-500">{{ $message }}</p> @enderror
                             </div>
                         </div>
@@ -81,7 +128,7 @@
                         </div>
                     </div>
 
-                    <div x-show="step === 2" x-cloak class="space-y-6">
+                    <div data-step="2" x-show="step === 2" x-cloak class="space-y-6">
                         <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);">
                             <div style="width:32px;height:32px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.25);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#93c5fd"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></div>
                             <div>
@@ -114,7 +161,7 @@
                         </div>
                     </div>
 
-                    <div x-show="step === 3" x-cloak class="space-y-6">
+                    <div data-step="3" x-show="step === 3" x-cloak class="space-y-6">
                         <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);">
                             <div style="width:32px;height:32px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.25);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#93c5fd"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 2a4 4 0 014 4v10a4 4 0 01-4 4H8l-4 4V6a4 4 0 014-4h8z"/></svg></div>
                             <div>
@@ -164,9 +211,9 @@
                     </div>
 
                     <div class="flex flex-col gap-4 pt-6 border-t border-slate-100 sm:flex-row sm:justify-between sm:items-center">
-                        <button type="button" @click="step = Math.max(step - 1, 1)" x-show="step > 1" x-cloak class="btn btn-secondary px-6">Back</button>
+                        <button type="button" @click="canNavigateTo(step - 1)" x-show="step > 1" x-cloak class="btn btn-secondary px-6">Back</button>
                         <div class="flex flex-col gap-3 sm:flex-row">
-                            <button type="button" @click="step = Math.min(step + 1, 3)" x-show="step < 3" x-cloak class="btn btn-primary px-6">Continue</button>
+                            <button type="button" @click="canNavigateTo(step + 1)" x-show="step < 3" x-cloak class="btn btn-primary px-6">Continue</button>
                             <button type="submit" x-show="step === 3" x-cloak class="btn btn-primary px-8 py-3 shadow-lg shadow-portal-200">
                                 Submit Complaint
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>

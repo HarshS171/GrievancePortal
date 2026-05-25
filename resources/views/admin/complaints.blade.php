@@ -144,127 +144,110 @@
                             <span class="inline-flex items-center gap-2 rounded-full bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700 border border-amber-100">{{ $overdueComplaints->count() }} complaint(s)</span>
                         </div>
 
-                        <div class="card p-0 overflow-hidden bg-white shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100">
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-slate-200">
-                                    <thead class="bg-slate-50/80">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Complaint</th>
-                                            <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Citizen</th>
-                                            <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                                            <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Submitted</th>
-                                            <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Action</th>
+                        <div class="glass-card p-0 overflow-hidden mb-10" style="overflow-x:auto;">
+                            <table class="min-w-full" style="width:100%;border-collapse:collapse;">
+                                <thead style="background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1);">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Complaint</th>
+                                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Citizen</th>
+                                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Submitted</th>
+                                        <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="background:transparent;">
+                                    @foreach($overdueComplaints as $complaint)
+                                        <tr style="border-top:1px solid rgba(255,255,255,0.06);" class="group">
+                                            <td style="padding:14px 16px;vertical-align:top;width:50%">
+                                                <div style="font-size:14px;font-weight:600;color:#e8f4ff;margin-bottom:6px;">{{ Str::limit($complaint->title, 50) }}</div>
+                                                <div style="font-size:12px;color:rgba(255,255,255,0.35);font-family:monospace">#{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }} · {{ $complaint->category->name ?? 'N/A' }}</div>
+                                            </td>
+                                            <td style="padding:14px 16px;vertical-align:top;">
+                                                <div style="display:flex;align-items:center;gap:12px;">
+                                                    @if($complaint->is_anonymous)
+                                                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,0.55);">?</div>
+                                                        <div style="font-size:14px;color:rgba(255,255,255,0.55);font-style:italic">Anonymous</div>
+                                                    @else
+                                                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(59,130,246,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#93c5fd">{{ strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}</div>
+                                                        <div style="font-size:14px;color:#e8f4ff">{{ $complaint->user->name ?? 'Unknown' }}</div>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td style="padding:14px 16px;vertical-align:top;">
+                                                <span style="display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;" class="{{ $complaint->status === 'Pending' ? 'status-pending' : ($complaint->status === 'In Progress' ? 'status-inprogress' : ($complaint->status === 'Resolved' ? 'status-resolved' : 'status-closed')) }}">{{ $complaint->status }}</span>
+                                            </td>
+                                            <td style="padding:14px 16px;vertical-align:top;color:rgba(255,255,255,0.3);font-size:12px">{{ $complaint->created_at->format('M d, Y') }}</td>
+                                            <td style="padding:14px 16px;vertical-align:top;text-align:right;">
+                                                <a href="{{ route('admin.complaints.show', $complaint->id) }}" style="background:transparent;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.65);border-radius:6px;padding:5px 14px;font-size:12px;">Manage</a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-slate-100">
-                                        @foreach($overdueComplaints as $complaint)
-                                            <tr class="hover:bg-slate-50/60 transition-colors group">
-                                                <td class="px-6 py-5">
-                                                    <div class="text-sm font-extrabold text-slate-900 mb-1.5 group-hover:text-portal-700 transition-colors">{{ Str::limit($complaint->title, 50) }}</div>
-                                                    <div class="text-xs text-slate-400 font-bold tracking-wider">#{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }} · {{ $complaint->category->name ?? 'N/A' }}</div>
-                                                </td>
-                                                <td class="px-6 py-5 whitespace-nowrap">
-                                                    <div class="flex items-center gap-3">
-                                                        @if($complaint->is_anonymous)
-                                                            <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-500 border border-slate-200">?</div>
-                                                            <div class="text-sm font-bold text-slate-500 italic">Anonymous</div>
-                                                        @else
-                                                            <div class="w-9 h-9 rounded-full bg-portal-100 flex items-center justify-center text-sm font-bold text-portal-700 border border-portal-200/60 shadow-sm">
-                                                                {{ strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}
-                                                            </div>
-                                                            <div class="text-sm font-bold text-slate-900">{{ $complaint->user->name ?? 'Unknown' }}</div>
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-5 whitespace-nowrap">
-                                                    <span class="badge {{ $complaint->status === 'Pending' ? 'badge-pending' : 'badge-in-progress' }}">{{ $complaint->status }}</span>
-                                                </td>
-                                                <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-slate-500">
-                                                    {{ $complaint->created_at->format('M d, Y') }}
-                                                </td>
-                                                <td class="px-6 py-5 whitespace-nowrap text-right text-sm font-medium">
-                                                    <a href="{{ route('admin.complaints.show', $complaint->id) }}" class="btn btn-secondary text-sm px-4 py-2 border-slate-200 text-slate-700 hover:text-portal-700 hover:border-portal-200 shadow-sm">Manage</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 @endif
             @else
-                <div class="card p-0 overflow-hidden bg-white shadow-lg shadow-slate-200/40 border-0 ring-1 ring-slate-100">
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-slate-200">
-                            <thead class="bg-slate-50/80">
-                                <tr>
-                                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Grievance Details</th>
-                                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Citizen</th>
-                                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
-                                    <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-slate-100">
-                                @foreach($complaints as $complaint)
-                                    <tr class="hover:bg-slate-50/60 transition-colors group">
-                                        <td class="px-6 py-5">
-                                            <div class="text-sm font-extrabold text-slate-900 mb-1.5 group-hover:text-portal-700 transition-colors">{{ Str::limit($complaint->title, 50) }}</div>
-                                            <div class="flex items-center gap-2">
-                                                <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-portal-50 text-portal-700 border border-portal-100/60 flex items-center gap-1">
-                                                    <div class="w-1.5 h-1.5 rounded-full bg-portal-500"></div>
-                                                    {{ $complaint->category->name ?? 'N/A' }}
+                <div class="glass-card p-0 overflow-hidden" style="overflow-x:auto;">
+                    <table class="min-w-full" style="width:100%;border-collapse:collapse;">
+                        <thead style="background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1);">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Grievance Details</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Citizen</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody style="background:transparent;">
+                            @foreach($complaints as $complaint)
+                                <tr style="border-top:1px solid rgba(255,255,255,0.06);" class="group">
+                                    <td style="padding:14px 16px;vertical-align:top;width:50%">
+                                        <div style="font-size:14px;font-weight:600;color:#e8f4ff;margin-bottom:6px;">{{ Str::limit($complaint->title, 50) }}</div>
+                                        <div style="display:flex;align-items:center;gap:8px;">
+                                            <span style="display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:6px;font-size:12px;font-weight:600;background:rgba(59,130,246,0.1);color:#93c5fd;border:1px solid rgba(59,130,246,0.2);">
+                                                <div style="width:6px;height:6px;border-radius:50%;background:#60a5fa;"></div>
+                                                {{ $complaint->category->name ?? 'N/A' }}
+                                            </span>
+                                            <span style="font-size:12px;color:rgba(255,255,255,0.35);font-family:monospace">#{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }}</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding:14px 16px;vertical-align:top;">
+                                        <div style="display:flex;align-items:center;gap:12px;">
+                                            @if($complaint->is_anonymous)
+                                                <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,0.55);">?</div>
+                                                <div style="font-size:14px;color:rgba(255,255,255,0.55);font-style:italic">Anonymous</div>
+                                            @else
+                                                <div style="width:36px;height:36px;border-radius:50%;background:rgba(59,130,246,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#93c5fd">{{ strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}</div>
+                                                <div style="font-size:14px;color:#e8f4ff">{{ $complaint->user->name ?? 'Unknown' }}</div>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td style="padding:14px 16px;vertical-align:top;">
+                                        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start;">
+                                            <span style="display:inline-flex;align-items:center;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;" class="{{ $complaint->status === 'Pending' ? 'status-pending' : ($complaint->status === 'In Progress' ? 'status-inprogress' : ($complaint->status === 'Resolved' ? 'status-resolved' : 'status-closed')) }}">
+                                                @if($complaint->status === 'Pending')PENDING
+                                                @elseif($complaint->status === 'In Progress')IN PROGRESS
+                                                @elseif($complaint->status === 'Resolved')RESOLVED
+                                                @else {{ strtoupper($complaint->status) }}
+                                                @endif
+                                            </span>
+                                            @if($complaint->is_escalated)
+                                                <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:0.06em;background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25);">
+                                                    <span style="width:4px;height:4px;border-radius:50%;background:#f87171;animation:pulse 1.5s infinite;"></span>
+                                                    ESCALATED
                                                 </span>
-                                                <span class="text-xs text-slate-400 font-bold tracking-wider">#{{ str_pad($complaint->id, 5, '0', STR_PAD_LEFT) }}</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-5 whitespace-nowrap">
-                                            <div class="flex items-center gap-3">
-                                                @if($complaint->is_anonymous)
-                                                    <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-500 border border-slate-200">?</div>
-                                                    <div class="text-sm font-bold text-slate-500 italic">Anonymous</div>
-                                                @else
-                                                    <div class="w-9 h-9 rounded-full bg-portal-100 flex items-center justify-center text-sm font-bold text-portal-700 border border-portal-200/60 shadow-sm">
-                                                        {{ strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}
-                                                    </div>
-                                                    <div class="text-sm font-bold text-slate-900">{{ $complaint->user->name ?? 'Unknown' }}</div>
-                                                @endif
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-5 whitespace-nowrap">
-                                            <div class="flex flex-col gap-1.5 items-start">
-                                                @if($complaint->status === 'Pending')
-                                                    <span class="badge badge-pending">Pending</span>
-                                                @elseif($complaint->status === 'In Progress')
-                                                    <span class="badge badge-in-progress">In Progress</span>
-                                                @elseif($complaint->status === 'Resolved')
-                                                    <span class="badge badge-resolved">Resolved</span>
-                                                @elseif($complaint->status === 'Rejected')
-                                                    <span class="badge badge-rejected">Rejected</span>
-                                                @else
-                                                    <span class="badge bg-slate-100 text-slate-800 border-slate-200">{{ $complaint->status }}</span>
-                                                @endif
-                                                
-                                                @if($complaint->is_escalated)
-                                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-extrabold tracking-wider bg-rose-50 text-rose-700 border border-rose-200/60">
-                                                        <span class="w-1 h-1 rounded-full bg-rose-500 animate-pulse"></span>
-                                                        ESCALATED
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-slate-500">
-                                            {{ $complaint->created_at->format('M d, Y') }}
-                                        </td>
-                                        <td class="px-6 py-5 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('admin.complaints.show', $complaint->id) }}" class="btn btn-secondary text-sm px-4 py-2 border-slate-200 text-slate-700 hover:text-portal-700 hover:border-portal-200 shadow-sm">Manage</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td style="padding:14px 16px;vertical-align:top;color:rgba(255,255,255,0.3);font-size:12px">{{ $complaint->created_at->format('M d, Y') }}</td>
+                                    <td style="padding:14px 16px;vertical-align:top;text-align:right;">
+                                        <a href="{{ route('admin.complaints.show', $complaint->id) }}" style="background:transparent;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.65);border-radius:6px;padding:5px 14px;font-size:12px;">Manage</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             @endif
         </div>
